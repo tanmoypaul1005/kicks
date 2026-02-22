@@ -1,5 +1,4 @@
 "use client";
-import ReviewsAndFooter from "./Footer";
 import HeroSection from "./components/home/HeroSection";
 import ProductGrid from "./components/home/ProductGrid";
 import CategoriesSlider from "./components/home/Categoriesslider";
@@ -56,7 +55,6 @@ export default function KicksPage() {
       </div>
 
       <CategoriesSlider />
-      <ReviewsAndFooter />
     </div>
   );
 }

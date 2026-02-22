@@ -3,6 +3,7 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
 import CartProvider from "./context/CartProvider";
+import ReviewsAndFooter from "./Footer";
 
 
 const rubik = Rubik({
@@ -33,7 +34,7 @@ export default function RootLayout({
             {children}
           </div>
         </CartProvider>
-
+        <ReviewsAndFooter />
         <div className="text-black text-center mt-[28px] mb-[18px]">© All rights reserved </div>
       </body>
     </html>
