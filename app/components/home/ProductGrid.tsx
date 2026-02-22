@@ -88,21 +88,9 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
           <svg width="58" height="38" viewBox="0 0 58 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 24C0 10.7452 10.7452 0 24 0L58 0V14C58 27.2548 47.2548 38 34 38L0 38L0 24Z" fill="#4A69E2" />
           </svg>
-          <span
-          className="flex justify-center items-center"
-            style={{
-              position: "absolute",
-              top: "6px",
-              left: "6px",
-              fontSize: "9px",
-              fontWeight: 700,
-              color: "#fff",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-            }}
-          >
-            { "NEW"}
-          </span>
+       <span className="absolute inset-0 flex items-center justify-center text-[9px] text-white font-bold uppercase tracking-wide">
+  NEW
+</span>
         </div>
 
         {/* Product image */}
