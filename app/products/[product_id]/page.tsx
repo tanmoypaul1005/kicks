@@ -211,6 +211,7 @@ function Skeleton({ className = "", style = {} }: SkeletonProps): ReactElement {
 
 // ── Main Component ────────────────────────────────────────────────────────
 export default function ProductPage({ product_id  }: ProductPageProps): ReactElement {
+
   const [product, setProduct]         = useState<Product | null>(null);
   const [loading, setLoading]         = useState<boolean>(true);
   const [error, setError]             = useState<string | null>(null);
@@ -765,3 +766,6 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
     </div>
   );
 }
+
+
+
