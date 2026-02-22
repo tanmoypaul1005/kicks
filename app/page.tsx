@@ -4,19 +4,10 @@ import HeroSection from "./components/home/HeroSection";
 import ProductGrid from "./components/home/ProductGrid";
 import CategoriesSlider from "./components/home/Categoriesslider";
 
-// Placeholder shoe images using placeholder service (no external images needed)
-const shoeColors = [
-  { bg: "from-slate-800 to-slate-600", accent: "#4169E1" },
-  { bg: "from-green-900 to-green-700", accent: "#22c55e" },
-  { bg: "from-emerald-900 to-teal-700", accent: "#10b981" },
-  { bg: "from-orange-600 to-red-700", accent: "#f97316" },
-];
-
-
 export default function KicksPage() {
 
   return (
-    <div className="min-h-screen bg-[#f4f4f0] font-sans">
+    <div className="min-h-screen">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
         body { font-family: 'Barlow', sans-serif; }
@@ -36,9 +27,8 @@ export default function KicksPage() {
         .new-drops-btn:hover { background: #1e3a8a; }
       `}</style>
 
-
       {/* HERO SECTION */}
-      <div className="max-w-screen-xl mx-auto px-4 pt-6 pb-8">
+      <div className=" px-4 pt-6 pb-8">
         {/* Big headline */}
         <div className="mb-5">
           <h1 className="hero-title text-gray-900">
