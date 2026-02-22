@@ -329,21 +329,9 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
   // ── Derived product data ──
   const title: string = product?.title ?? "Product";
   const price: number = product?.price ?? 0;
-  const description: string = product?.description ?? "No description available.";
   const category: string = product?.category?.name ?? "General";
-  const slug: string = product?.slug ?? "";
   const allImages: string[] = product?.images ?? [];
 
-  const trustBadges: TrustBadge[] = [
-    { icon: "🚚", label: "Free Shipping", sub: "On orders $100+" },
-    { icon: "↩️", label: "Free Returns", sub: "Within 30 days" },
-    { icon: "🔒", label: "Secure Pay", sub: "100% Protected" },
-  ];
-
-  const ratingBars: RatingBar[] = [
-    { s: 5, pct: 82 }, { s: 4, pct: 12 },
-    { s: 3, pct: 4 }, { s: 2, pct: 1 }, { s: 1, pct: 1 },
-  ];
 
   const relatedProducts: RelatedProduct[] = [
     { name: "Ultraboost 22", price: "$180", badge: "Hot", color: "red" },
@@ -352,16 +340,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
     { name: "Gazelle Bold", price: "$110", badge: "Sale", color: "grey" },
   ];
 
-  const detailRows: [string, string | number | undefined][] = [
-    ["Product ID", product?.id],
-    ["Title", title],
-    ["Slug", slug || "—"],
-    ["Price", `$${price}`],
-    ["Category", category],
-    ["Category ID", product?.category?.id],
-    ["Category Slug", product?.category?.slug ?? "—"],
-    ["Images", `${allImages.length} image(s)`],
-  ];
 
   return (
     <div className="min-h-screen bg-[#f4f4f0]">
@@ -650,100 +628,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               Buy it now
             </div>
 
-          </div>
-        </div>
-
-        {/* ── TABS ── */}
-        <div className="mt-12 sm:mt-16">
-          <div className="flex border-b border-gray-200 gap-6 sm:gap-8 overflow-x-auto">
-            {["description", "details", "reviews"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`tab-label pb-3 whitespace-nowrap transition-colors border-b-2 ${activeTab === tab ? "border-blue-600 text-blue-600" : "border-transparent text-gray-400 hover:text-gray-700"}`}
-              >
-                {tab === "reviews" ? "Reviews (128)" : tab.charAt(0).toUpperCase() + tab.slice(1)}
-              </button>
-            ))}
-          </div>
-
-          <div className="py-6 sm:py-8">
-            {activeTab === "description" && (
-              <div className="max-w-2xl space-y-4 fade-up">
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{description}</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
-                  {["Premium Material", "Durable Build", "Modern Design", "Comfortable Fit", "Easy Care", "Versatile Use"].map((f) => (
-                    <div key={f} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0" />
-                      <span className="text-gray-700 text-xs sm:text-sm">{f}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === "details" && (
-              <div className="max-w-lg fade-up">
-                <table className="w-full text-sm">
-                  <tbody>
-                    {detailRows.map(([k, v], i) => (
-                      <tr key={String(k)} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                        <td className="fd font-bold text-gray-500 text-xs uppercase tracking-wider py-3 px-4 rounded-l-lg">{k}</td>
-                        <td className="text-gray-800 py-3 px-4 rounded-r-lg text-sm">{String(v ?? "—")}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-
-            {activeTab === "reviews" && (
-              <div className="max-w-2xl space-y-5 fade-up">
-                <div className="bg-white rounded-2xl p-5 flex items-center gap-6 border border-gray-100">
-                  <div className="text-center flex-shrink-0">
-                    <p className="price-main text-gray-900">4.8</p>
-                    <Stars fill={5} />
-                    <p className="text-gray-400 text-xs mt-1">128 reviews</p>
-                  </div>
-                  <div className="flex-1 space-y-1.5">
-                    {ratingBars.map((r) => (
-                      <div key={r.s} className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500 w-4 fd font-bold">{r.s}</span>
-                        <svg className="w-3 h-3 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                        <div className="flex-1 bg-gray-100 rounded-full h-2">
-                          <div className="bg-yellow-400 h-2 rounded-full" style={{ width: `${r.pct}%` }} />
-                        </div>
-                        <span className="text-xs text-gray-400 w-7">{r.pct}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {reviews.map((r, i) => (
-                  <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white fd font-bold text-sm">
-                          {r.name.split(" ").map((n) => n[0]).join("")}
-                        </div>
-                        <div>
-                          <p className="review-author text-gray-900">{r.name}</p>
-                          <p className="review-date text-gray-400">{r.date}</p>
-                        </div>
-                      </div>
-                      <Stars fill={r.rating} />
-                    </div>
-                    <p className="text-gray-600 text-sm leading-relaxed">{r.text}</p>
-                  </div>
-                ))}
-
-                <button className="btn-secondary border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-colors w-full sm:w-auto">
-                  LOAD MORE REVIEWS
-                </button>
-              </div>
-            )}
           </div>
         </div>
 
