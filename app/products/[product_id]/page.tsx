@@ -399,15 +399,6 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
           <span className="text-gray-700 font-medium">{title}</span>
         </div>
 
-        {/* API Tag */}
-        <div className="mb-4 flex items-center gap-2">
-          <span className="bg-gray-900 text-green-400 text-xs px-3 py-1 rounded-full fd font-bold tracking-wider">
-            GET /api/v1/products/{product?.id}
-          </span>
-          <span className="text-gray-400 text-xs">Live data</span>
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-        </div>
-
         {/* Main grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-16 items-start">
 
