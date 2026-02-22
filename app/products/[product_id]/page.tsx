@@ -81,7 +81,7 @@ interface SkeletonProps {
 }
 
 interface ProductPageProps {
-  productId?: number;
+  product_id?: number;
 }
 
 // ── Constants ─────────────────────────────────────────────────────────────
@@ -209,7 +209,7 @@ function Skeleton({ className = "", style = {} }: SkeletonProps): ReactElement {
 }
 
 // ── Main Component ────────────────────────────────────────────────────────
-export default function ProductPage({ productId = 3 }: ProductPageProps): ReactElement {
+export default function ProductPage({ product_id  }: ProductPageProps): ReactElement {
   const [product, setProduct]         = useState<Product | null>(null);
   const [loading, setLoading]         = useState<boolean>(true);
   const [error, setError]             = useState<string | null>(null);
@@ -229,14 +229,14 @@ export default function ProductPage({ productId = 3 }: ProductPageProps): ReactE
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`https://api.escuelajs.co/api/v1/products/${productId}`)
+    fetch(`https://api.escuelajs.co/api/v1/products/${product_id}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<Product>;
       })
       .then((data) => { setProduct(data); setLoading(false); })
       .catch((err: Error) => { setError(err.message); setLoading(false); });
-  }, [productId]);
+  }, [product_id]);
 
   const handleAddToCart = (): void => {
     if (!selectedSize) { setSizeError(true); return; }
