@@ -583,7 +583,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 <p className="section-label text-gray-500">
                   Size:{" "}
                   {selectedSize !== null && (
-                    <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, letterSpacing: "0.5px", textTransform: "none" }}>
+                    <span style={{ fontWeight: 700, letterSpacing: "0.5px", textTransform: "none" }}>
                       US {selectedSize}
                     </span>
                   )}
@@ -602,10 +602,10 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
-                            ? "border-blue-600 bg-blue-600 text-white"
-                            : "border-gray-200 text-gray-700 bg-white hover:border-gray-700"
+                            ? "border-[#232321] bg-[#232321] text-white"
+                            : "border-gray-200 text-gray-700 bg-white cursor-pointer hover:border-[#232321]"
                         }`}
-                      style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "13px" }}
+                      style={{ fontWeight: 700, fontSize: "13px" }}
                     >
                       {s}
                       {unavail && (
@@ -662,17 +662,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 </svg>
               </button>
             </div>
-
-            {/* Trust badges */}
-            <div className="grid grid-cols-3 gap-2 pt-1">
-              {trustBadges.map((b) => (
-                <div key={b.label} className="bg-white rounded-xl p-3 text-center border border-gray-100">
-                  <div className="text-xl mb-1">{b.icon}</div>
-                  <p className="fd font-bold text-gray-800 text-xs leading-tight">{b.label}</p>
-                  <p className="text-gray-400 mt-0.5" style={{ fontSize: "10px" }}>{b.sub}</p>
-                </div>
-              ))}
-            </div>
+           
           </div>
         </div>
 
