@@ -91,24 +91,24 @@ const unavailable: number[] = [6, 6.5, 11.5, 12];
 
 const colorways: Colorway[] = [
   { key: "black", label: "Triple Black", hex: "#1f2937" },
-  { key: "red",   label: "Chicago Red",  hex: "#dc2626" },
-  { key: "blue",  label: "Royal Blue",   hex: "#2563eb" },
-  { key: "grey",  label: "Fog Grey",     hex: "#6b7280" },
+  { key: "red", label: "Chicago Red", hex: "#dc2626" },
+  { key: "blue", label: "Royal Blue", hex: "#2563eb" },
+  { key: "grey", label: "Fog Grey", hex: "#6b7280" },
 ];
 
 const reviews: Review[] = [
   { name: "Jordan M.", rating: 5, date: "Jan 12, 2026", text: "Absolutely fire. The quality is insane for the price. Wore them to the gym and got compliments all day." },
-  { name: "Aisha K.",  rating: 5, date: "Jan 8, 2026",  text: "Fits true to size. Super comfortable right out of the box. The colorway is even better in person." },
-  { name: "Dante R.",  rating: 4, date: "Dec 29, 2025", text: "Great shoe overall. Docking one star because shipping took a bit longer than expected. But worth it!" },
+  { name: "Aisha K.", rating: 5, date: "Jan 8, 2026", text: "Fits true to size. Super comfortable right out of the box. The colorway is even better in person." },
+  { name: "Dante R.", rating: 4, date: "Dec 29, 2025", text: "Great shoe overall. Docking one star because shipping took a bit longer than expected. But worth it!" },
 ];
 
 // ── SVG Shoe Main ─────────────────────────────────────────────────────────
 function ProductShoeMain({ colorway }: ProductShoeMainProps): ReactElement {
   const palettes: Record<ColorwayKey, ColorPalette> = {
     black: { body: "#1f2937", sole: "#f1f5f9", swoosh: "#3b82f6", lace: "#f9fafb", accent: "#111827" },
-    red:   { body: "#dc2626", sole: "#f1f5f9", swoosh: "#1f2937", lace: "#ffffff", accent: "#991b1b" },
-    blue:  { body: "#2563eb", sole: "#f1f5f9", swoosh: "#1e40af", lace: "#dbeafe", accent: "#1d4ed8" },
-    grey:  { body: "#6b7280", sole: "#f1f5f9", swoosh: "#374151", lace: "#f9fafb", accent: "#4b5563" },
+    red: { body: "#dc2626", sole: "#f1f5f9", swoosh: "#1f2937", lace: "#ffffff", accent: "#991b1b" },
+    blue: { body: "#2563eb", sole: "#f1f5f9", swoosh: "#1e40af", lace: "#dbeafe", accent: "#1d4ed8" },
+    grey: { body: "#6b7280", sole: "#f1f5f9", swoosh: "#374151", lace: "#f9fafb", accent: "#4b5563" },
   };
   const c: ColorPalette = palettes[colorway] ?? palettes.black;
 
@@ -159,9 +159,9 @@ function ProductShoeMain({ colorway }: ProductShoeMainProps): ReactElement {
 function ThumbShoe({ color, active }: ThumbShoeProps): ReactElement {
   const colors: Record<ColorwayKey, string> = {
     black: "#1f2937",
-    red:   "#dc2626",
-    blue:  "#2563eb",
-    grey:  "#6b7280",
+    red: "#dc2626",
+    blue: "#2563eb",
+    grey: "#6b7280",
   };
   return (
     <svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -210,20 +210,20 @@ function Skeleton({ className = "", style = {} }: SkeletonProps): ReactElement {
 }
 
 // ── Main Component ────────────────────────────────────────────────────────
-export default function ProductPage({ product_id  }: ProductPageProps): ReactElement {
+export default function ProductPage({ product_id }: ProductPageProps): ReactElement {
 
-  const [product, setProduct]         = useState<Product | null>(null);
-  const [loading, setLoading]         = useState<boolean>(true);
-  const [error, setError]             = useState<string | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const params = useParams() as { product_id?: string };
   const pid = Number(params?.product_id ?? product_id ?? 3);
 
   const [selectedColor, setSelectedColor] = useState<ColorwayKey>("black");
-  const [selectedSize,  setSelectedSize]  = useState<number | null>(null);
-  const [quantity,  setQuantity]  = useState<number>(1);
-  const [added,     setAdded]     = useState<boolean>(false);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+  const [added, setAdded] = useState<boolean>(false);
   const [activeImg, setActiveImg] = useState<number>(0);
-  const [wishlist,  setWishlist]  = useState<boolean>(false);
+  const [wishlist, setWishlist] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("description");
   const [sizeError, setSizeError] = useState<boolean>(false);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
@@ -327,40 +327,40 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
   }
 
   // ── Derived product data ──
-  const title: string       = product?.title       ?? "Product";
-  const price: number       = product?.price       ?? 0;
+  const title: string = product?.title ?? "Product";
+  const price: number = product?.price ?? 0;
   const description: string = product?.description ?? "No description available.";
-  const category: string    = product?.category?.name ?? "General";
-  const slug: string        = product?.slug        ?? "";
-  const allImages: string[] = product?.images      ?? [];
+  const category: string = product?.category?.name ?? "General";
+  const slug: string = product?.slug ?? "";
+  const allImages: string[] = product?.images ?? [];
 
   const trustBadges: TrustBadge[] = [
     { icon: "🚚", label: "Free Shipping", sub: "On orders $100+" },
-    { icon: "↩️", label: "Free Returns",  sub: "Within 30 days" },
-    { icon: "🔒", label: "Secure Pay",    sub: "100% Protected" },
+    { icon: "↩️", label: "Free Returns", sub: "Within 30 days" },
+    { icon: "🔒", label: "Secure Pay", sub: "100% Protected" },
   ];
 
   const ratingBars: RatingBar[] = [
     { s: 5, pct: 82 }, { s: 4, pct: 12 },
-    { s: 3, pct: 4  }, { s: 2, pct: 1  }, { s: 1, pct: 1 },
+    { s: 3, pct: 4 }, { s: 2, pct: 1 }, { s: 1, pct: 1 },
   ];
 
   const relatedProducts: RelatedProduct[] = [
-    { name: "Ultraboost 22", price: "$180", badge: "Hot",  color: "red"   },
-    { name: "NMD_R1 V3",     price: "$140", badge: "New",  color: "blue"  },
-    { name: "Forum Low",      price: "$100", badge: "New",  color: "black" },
-    { name: "Gazelle Bold",   price: "$110", badge: "Sale", color: "grey"  },
+    { name: "Ultraboost 22", price: "$180", badge: "Hot", color: "red" },
+    { name: "NMD_R1 V3", price: "$140", badge: "New", color: "blue" },
+    { name: "Forum Low", price: "$100", badge: "New", color: "black" },
+    { name: "Gazelle Bold", price: "$110", badge: "Sale", color: "grey" },
   ];
 
   const detailRows: [string, string | number | undefined][] = [
-    ["Product ID",    product?.id],
-    ["Title",         title],
-    ["Slug",          slug || "—"],
-    ["Price",         `$${price}`],
-    ["Category",      category],
-    ["Category ID",   product?.category?.id],
+    ["Product ID", product?.id],
+    ["Title", title],
+    ["Slug", slug || "—"],
+    ["Price", `$${price}`],
+    ["Category", category],
+    ["Category ID", product?.category?.id],
     ["Category Slug", product?.category?.slug ?? "—"],
-    ["Images",        `${allImages.length} image(s)`],
+    ["Images", `${allImages.length} image(s)`],
   ];
 
   return (
@@ -404,91 +404,125 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-16 items-start">
 
           {/* LEFT — Image Gallery */}
-          <div className="flex flex-col gap-4 fade-up">
-            <div
-              className="relative bg-white rounded-2xl overflow-hidden flex items-center justify-center"
-              style={{ minHeight: "360px", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
-            >
-              {/* Badges */}
-              <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                <span className="fd font-bold text-xs tracking-widest uppercase bg-blue-600 text-white px-3 py-1 rounded">{category}</span>
-                <span className="fd font-bold text-xs tracking-widest uppercase bg-black text-white px-3 py-1 rounded">#{product?.id}</span>
-              </div>
+         <div className="fade-up">
 
-              {/* Wishlist */}
-              <button
-                onClick={() => setWishlist(!wishlist)}
-                className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center hover:scale-110 transition-transform"
+            {/* ── 2×2 grid: main image top-left (spans rows), 3 thumbs fill right + bottom-left ── */}
+            <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3" style={{ height: "480px" }}>
+
+              {/* MAIN IMAGE — top-left, spans 2 rows */}
+              <div
+                className="relative bg-white rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer"
+                style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
+                onClick={() => setActiveImg(0)}
               >
-                <svg
-                  className={`w-5 h-5 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`}
-                  viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none"
+                {/* Badges */}
+                <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
+                  <span className="fd font-bold text-[10px] tracking-widest uppercase bg-blue-600 text-white px-2 py-0.5 rounded">{category}</span>
+                  <span className="fd font-bold text-[10px] tracking-widest uppercase bg-black text-white px-2 py-0.5 rounded">#{product?.id}</span>
+                </div>
+
+                {/* Wishlist */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setWishlist(!wishlist); }}
+                  className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center hover:scale-110 transition-transform"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </button>
-
-              {/* Image or SVG */}
-              <div className="w-full px-8 py-6" style={{ maxHeight: "400px" }}>
-                {hasRealImages ? (
-                  <img
-                    src={validImages[activeImg] ?? validImages[0]}
-                    alt={title}
-                    className="w-full h-full object-contain"
-                    style={{ maxHeight: "340px" }}
-                  />
-                ) : (
-                  <ProductShoeMain colorway={selectedColor} />
-                )}
-              </div>
-
-              {/* Colorway label */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-xs px-3 py-1 rounded-full fd font-semibold tracking-wide whitespace-nowrap">
-                {hasRealImages
-                  ? title
-                  : colorways.find((c) => c.key === selectedColor)?.label}
-              </div>
-            </div>
-
-            {/* Thumbnails */}
-            <div className="grid grid-cols-4 gap-3">
-              {hasRealImages ? (
-                allImages.slice(0, 4).map((img, i) => {
-                  const isPlaceholder: boolean = img.includes("placehold") || !!imgErrors[i];
-                  return (
-                    <button
-                      key={i}
-                      onClick={() => setActiveImg(i)}
-                      className={`thumb-card rounded-xl overflow-hidden bg-white border-2 transition-all ${activeImg === i ? "border-blue-600" : "border-transparent"}`}
-                      style={{ aspectRatio: "4/3", boxShadow: "0 2px 8px #0001" }}
-                    >
-                      {isPlaceholder ? (
-                        <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                          <ThumbShoe color={colorways[i % 4].key} active={activeImg === i} />
-                        </div>
-                      ) : (
-                        <img
-                          src={img}
-                          alt={`${title} ${i + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={() => handleImgError(i)}
-                        />
-                      )}
-                    </button>
-                  );
-                })
-              ) : (
-                colorways.map((c, i) => (
-                  <button
-                    key={c.key}
-                    onClick={() => { setSelectedColor(c.key); setActiveImg(i); }}
-                    className={`thumb-card rounded-xl overflow-hidden bg-white border-2 transition-all ${selectedColor === c.key ? "border-blue-600" : "border-transparent"}`}
-                    style={{ aspectRatio: "4/3", boxShadow: "0 2px 8px #0001" }}
+                  <svg
+                    className={`w-4 h-4 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`}
+                    viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none"
                   >
-                    <ThumbShoe color={c.key} active={selectedColor === c.key} />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+
+                {/* Main image content */}
+                <div className="w-full h-full p-6 flex items-center justify-center">
+                  {hasRealImages ? (
+                    <img
+                      src={validImages[activeImg] ?? validImages[0]}
+                      alt={title}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                  ) : (
+                    <ProductShoeMain colorway={selectedColor} />
+                  )}
+                </div>
+
+                {/* Colorway label pill */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-[10px] px-3 py-1 rounded-full fd font-semibold tracking-wide whitespace-nowrap">
+                  {hasRealImages
+                    ? title
+                    : colorways.find((c) => c.key === selectedColor)?.label}
+                </div>
+              </div>
+
+              {/* THUMB 2 — top-right */}
+              {hasRealImages ? (() => {
+                const img = allImages[1];
+                const isPlaceholder = !img || img.includes("placehold") || !!imgErrors[1];
+                return (
+                  <button
+                    onClick={() => setActiveImg(1)}
+                    className={`thumb-card relative rounded-2xl overflow-hidden bg-white border-2 transition-all w-full h-full ${activeImg === 1 ? "border-blue-600" : "border-transparent"}`}
+                    style={{ boxShadow: "0 2px 8px #0001" }}
+                  >
+                    {isPlaceholder ? (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
+                        <ThumbShoe color={colorways[1].key} active={activeImg === 1} />
+                      </div>
+                    ) : (
+                      <img src={img} alt={`${title} 2`} className="w-full h-full object-cover" onError={() => handleImgError(1)} />
+                    )}
                   </button>
-                ))
+                );
+              })() : (
+                <button
+                  onClick={() => { setSelectedColor(colorways[1].key); setActiveImg(1); }}
+                  className={`thumb-card rounded-2xl overflow-hidden bg-white border-2 transition-all ${selectedColor === colorways[1].key ? "border-blue-600" : "border-transparent"}`}
+                  style={{ boxShadow: "0 2px 8px #0001" }}
+                >
+                  <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
+                    <ThumbShoe color={colorways[1].key} active={selectedColor === colorways[1].key} />
+                  </div>
+                </button>
               )}
+
+              {/* THUMB 3 — bottom-right */}
+              {hasRealImages ? (() => {
+                const img = allImages[2];
+                const isPlaceholder = !img || img.includes("placehold") || !!imgErrors[2];
+                return (
+                  <button
+                    onClick={() => setActiveImg(2)}
+                    className={`thumb-card relative rounded-2xl overflow-hidden bg-white border-2 transition-all w-full h-full ${activeImg === 2 ? "border-blue-600" : "border-transparent"}`}
+                    style={{ boxShadow: "0 2px 8px #0001" }}
+                  >
+                    {isPlaceholder ? (
+                      <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
+                        <ThumbShoe color={colorways[2].key} active={activeImg === 2} />
+                      </div>
+                    ) : (
+                      <img src={img} alt={`${title} 3`} className="w-full h-full object-cover" onError={() => handleImgError(2)} />
+                    )}
+                    {/* "+N more" overlay on last thumb if >4 images */}
+                    {allImages.length > 4 && (
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-2xl">
+                        <span className="text-white fd font-black text-2xl">+{allImages.length - 3}</span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })() : (
+                <button
+                  onClick={() => { setSelectedColor(colorways[2].key); setActiveImg(2); }}
+                  className={`thumb-card rounded-2xl overflow-hidden bg-white border-2 transition-all ${selectedColor === colorways[2].key ? "border-blue-600" : "border-transparent"}`}
+                  style={{ boxShadow: "0 2px 8px #0001" }}
+                >
+                  <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
+                    <ThumbShoe color={colorways[2].key} active={selectedColor === colorways[2].key} />
+                  </div>
+                </button>
+              )}
+
             </div>
           </div>
 
