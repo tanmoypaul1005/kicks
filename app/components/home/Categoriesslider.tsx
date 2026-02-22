@@ -119,7 +119,7 @@ function SkeletonCard(): ReactElement {
 
 // ── Category Card ─────────────────────────────────────────────────────────
 function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
-  const [hovered, setHovered] = useState<boolean>(false);
+
   const [imgError, setImgError] = useState<boolean>(false);
 
   const isPlaceholder: boolean =
@@ -131,8 +131,7 @@ function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
         "relative overflow-hidden cursor-pointer mx-2.5 rounded-xl bg-white",
         "transition-[transform,box-shadow] duration-[220ms] ease-in-out",
       ].join(" ")}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+
     >
       {/* Image / SVG area */}
       <div className="w-full aspect-[4/3] overflow-hidden bg-gray-50 flex items-center justify-center">
@@ -154,10 +153,10 @@ function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
           {cat.name}
         </h3>
 
- <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="48" height="48" rx="8" fill="#232321"/>
-<path d="M18.1668 17.1057H30.8947V29.8336M30.0108 17.9895L17.1061 30.8942" stroke="#E7E7E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="8" fill="#232321" />
+          <path d="M18.1668 17.1057H30.8947V29.8336M30.0108 17.9895L17.1061 30.8942" stroke="#E7E7E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
 
       </div>
     </div>
@@ -194,9 +193,9 @@ function NavBtn({ fn, icon, disabled }: NavButtonProps): ReactElement {
 // ── Main Component ────────────────────────────────────────────────────────
 export default function CategoriesSlider(): ReactElement {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading]       = useState<boolean>(true);
-  const [error, setError]           = useState<string | null>(null);
-  const [current, setCurrent]       = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [current, setCurrent] = useState<number>(0);
 
   const visible = 2;
 
@@ -214,9 +213,9 @@ export default function CategoriesSlider(): ReactElement {
 
   useEffect(() => { load(); }, []);
 
-  const max: number        = Math.max(0, categories.length - visible);
-  const prev = (): void   => setCurrent((c) => Math.max(0, c - 1));
-  const next = (): void   => setCurrent((c) => Math.min(max, c + 1));
+  const max: number = Math.max(0, categories.length - visible);
+  const prev = (): void => setCurrent((c) => Math.max(0, c - 1));
+  const next = (): void => setCurrent((c) => Math.min(max, c + 1));
   const shown: Category[] = categories.slice(current, current + visible);
 
   return (
@@ -231,7 +230,7 @@ export default function CategoriesSlider(): ReactElement {
       <div className="bg-[#1a1a1a]">
         <div className="max-w-screen-xl mx-auto pt-18 px-6">
           {/* white rounded panel to match design */}
-          <div className="bg-white rounded-2xl overflow-hidden p-6">
+          <div className="">
 
             {/* ── Header ── */}
             <div className="flex items-center justify-between pb-4">
