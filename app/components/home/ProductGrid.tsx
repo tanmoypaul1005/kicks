@@ -26,12 +26,6 @@ interface ShoeSVGProps {
 interface ProductCardProps {
   product: Product;
   index: number;
-  onClick: (product: Product) => void;
-}
-
-interface ProductModalProps {
-  product: Product | null;
-  onClose: () => void;
 }
 
 // ── SVG Shoe Illustration ─────────────────────────────────────────────────
@@ -60,7 +54,7 @@ function ShoeSVG({ index }: ShoeSVGProps) {
 }
 
 // ── Product Card ──────────────────────────────────────────────────────────
-function ProductCard({ product, index, onClick }: ProductCardProps) {
+function ProductCard({ product, index }: ProductCardProps) {
   const [hovered, setHovered] = useState<boolean>(false);
 
   const hasRealImage =
@@ -69,8 +63,8 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
     !product.images[0].includes("placehold");
 
   return (
-    <div
-      onClick={() => onClick(product)}
+    <Link
+      href={`/products/${product.id}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="bg-white rounded-xl overflow-hidden cursor-pointer"
@@ -135,8 +129,7 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
         >
           {product.title}
         </p>
-        <Link
-          href={`/products/${product.id}`}
+        <button
           className="w-full text-white gap-x-2 py-2 rounded flex items-center justify-center px-3"
           style={{
             background: hovered ? "#1e293b" : "#111827",
@@ -147,115 +140,12 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
             View Product -
           </span>
           <span className="text-[#FFA52F] text-[13px] font-bold">${product.price}</span>
-        </Link>
+        </button>
       </div>
-    </div>
+    </Link>
   );
 }
 
-// ── Product Modal ─────────────────────────────────────────────────────────
-function ProductModal({ product, onClose }: ProductModalProps) {
-  const [activeImg, setActiveImg] = useState<number>(0);
-
-  if (!product) return null;
-
-  const validImages: string[] =
-    product.images?.filter((img) => img && !img.includes("placehold")) ?? [];
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-2xl overflow-hidden max-w-lg w-full"
-        style={{ boxShadow: "0 25px 60px rgba(0,0,0,0.25)", maxHeight: "90vh", overflowY: "auto" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header image */}
-        <div className="relative bg-gray-50" style={{ height: "260px" }}>
-          {validImages.length > 0 ? (
-            <img
-              src={validImages[activeImg]}
-              alt={product.title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center p-8">
-              <ShoeSVG index={product.id % 4} />
-            </div>
-          )}
-
-          {/* Close button */}
-          <button
-            onClick={onClose}
-            className="absolute top-3 right-3 bg-white rounded-full flex items-center justify-center"
-            style={{ width: 32, height: 32, boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 1l12 12M13 1L1 13" stroke="#111" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </button>
-
-          {/* Category badge */}
-          <div
-            className="absolute top-3 left-3 px-2 py-1 rounded-full text-white"
-            style={{ fontSize: "10px", fontWeight: 700, background: "#4A69E2", letterSpacing: "0.08em" }}
-          >
-            {product.category?.name?.toUpperCase()}
-          </div>
-        </div>
-
-        {/* Thumbnails */}
-        {validImages.length > 1 && (
-          <div className="flex gap-2 px-4 pt-3">
-            {validImages.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveImg(i)}
-                className="rounded-lg overflow-hidden"
-                style={{
-                  width: 52,
-                  height: 52,
-                  border: activeImg === i ? "2px solid #4A69E2" : "2px solid transparent",
-                  flexShrink: 0,
-                }}
-              >
-                <img src={img} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Info */}
-        <div className="p-4">
-          <h2 style={{ fontSize: "17px", fontWeight: 800, color: "#111", letterSpacing: "-0.01em", marginBottom: 6 }}>
-            {product.title}
-          </h2>
-          <p style={{ fontSize: "13px", color: "#6b7280", lineHeight: 1.6, marginBottom: 16 }}>
-            {product.description}
-          </p>
-
-          <div className="flex items-center justify-between">
-            <div>
-              <p style={{ fontSize: "11px", color: "#9ca3af", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                Price
-              </p>
-              <p style={{ fontSize: "26px", fontWeight: 900, color: "#111" }}>${product.price}</p>
-            </div>
-            <button
-              className="text-white rounded-xl px-6 py-3"
-              style={{ background: "#4A69E2", fontWeight: 700, fontSize: "13px", letterSpacing: "0.08em" }}
-            >
-              ADD TO CART
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ── Product Grid (default export) ─────────────────────────────────────────
 export default function ProductGrid() {
@@ -336,7 +226,6 @@ export default function ProductGrid() {
                   key={product.id}
                   product={product}
                   index={i}
-                  onClick={setSelected}
                 />
               ))}
             </div>
@@ -378,9 +267,6 @@ export default function ProductGrid() {
           </>
         )}
       </div>
-
-      {/* Modal */}
-      {selected && <ProductModal product={selected} onClose={() => setSelected(null)} />}
 
       <style>{`
         @keyframes shimmer {
