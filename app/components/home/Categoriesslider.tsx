@@ -224,9 +224,9 @@ function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
 // ── Main component ────────────────────────────────────────────────────────
 export default function CategoriesSlider(): ReactElement {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading]       = useState<boolean>(true);
-  const [error, setError]           = useState<string | null>(null);
-  const [current, setCurrent]       = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [current, setCurrent] = useState<number>(0);
   const visible = 2;
 
   const load = (): void => {
@@ -251,7 +251,7 @@ export default function CategoriesSlider(): ReactElement {
     load();
   }, []);
 
-  const max: number  = Math.max(0, categories.length - visible);
+  const max: number = Math.max(0, categories.length - visible);
   const prev = (): void => setCurrent((c) => Math.max(0, c - 1));
   const next = (): void => setCurrent((c) => Math.min(max, c + 1));
   const shown: Category[] = categories.slice(current, current + visible);
@@ -270,118 +270,119 @@ export default function CategoriesSlider(): ReactElement {
         .cat-fade { animation: fadeUp .3s ease both; }
       `}</style>
 
-      {/* ── Header bar ── */}
-      <div
-        className="flex items-center justify-between px-5 py-4"
-        style={{ background: "#1a1a1a" }}
-      >
-        <div className="flex items-center gap-3">
-          <h2
-            className="text-white font-black"
-            style={{ fontSize: "clamp(22px,5vw,34px)", letterSpacing: "-0.5px", lineHeight: 1 }}
-          >
-            CATEGORIES
-          </h2>
-
-          {/* Live indicator */}
-          {!loading && !error && (
-            <span
-              className="flex items-center gap-1.5 font-bold"
-              style={{ color: "#4ade80", fontSize: 11, letterSpacing: "0.08em", fontFamily: "monospace" }}
-            >
-              <span
-                className="inline-block rounded-full animate-pulse"
-                style={{ width: 6, height: 6, background: "#4ade80" }}
-              />
-              {categories.length} LIVE
-            </span>
-          )}
-        </div>
-
-        {/* Arrow nav */}
-        <div className="flex gap-2">
-          {navButtons.map(({ fn, icon, disabled }, i) => (
-            <button
-              key={i}
-              onClick={fn}
-              disabled={disabled}
-              style={{
-                width: 36,
-                height: 36,
-                background: disabled ? "#2e2e2e" : "#444",
-                color: disabled ? "#555" : "#fff",
-                border: "none",
-                borderRadius: 8,
-                cursor: disabled ? "not-allowed" : "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "background .2s",
-              }}
-            >
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                <path
-                  d={icon}
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Cards area ── */}
-      <div
-        style={{
-          background: "#1a1a1a",
-          padding: "12px 2px 16px",
-        
-        }}
-      >
-        {error ? (
-          /* Error state */
-          <div className="flex flex-col items-center justify-center py-14 text-center px-6">
-            <p className="font-black text-white text-base mb-1">Failed to load categories</p>
-            <p className="text-gray-500 text-xs mb-4">{error}</p>
-            <button
-              onClick={load}
-              style={{
-                background: "#4A69E2",
-                color: "#fff",
-                border: "none",
-                borderRadius: 10,
-                padding: "10px 24px",
-                fontWeight: 700,
-                fontSize: 12,
-                cursor: "pointer",
-                letterSpacing: "1px",
-              }}
-            >
-              RETRY
-            </button>
-          </div>
-        ) : loading ? (
-          /* Skeleton */
-          <div className="grid" style={{ gridTemplateColumns: `repeat(${visible}, 1fr)` }}>
-            {Array.from({ length: visible }).map((_, i) => (
-              <SkeletonCard key={i} />
-            ))}
-          </div>
-        ) : (
-          /* Live cards */
+      <div className="bg-[#1a1a1a]">
+        <div className="max-w-screen-xl mx-auto ">
+          {/* ── Header bar ── */}
           <div
-            className="grid cat-fade"
-            style={{ gridTemplateColumns: `repeat(${visible}, 1fr)` }}
+            className="flex items-center justify-between py-4"
+
           >
-            {shown.map((cat, i) => (
-              <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
-            ))}
+            <div className="flex items-center gap-3">
+              <h2
+                className="text-white font-black"
+                style={{ fontSize: "clamp(22px,5vw,34px)", letterSpacing: "-0.5px", lineHeight: 1 }}
+              >
+                CATEGORIES
+              </h2>
+
+              {/* Live indicator */}
+              {!loading && !error && (
+                <span
+                  className="flex items-center gap-1.5 font-bold"
+                  style={{ color: "#4ade80", fontSize: 11, letterSpacing: "0.08em", fontFamily: "monospace" }}
+                >
+                  <span
+                    className="inline-block rounded-full animate-pulse"
+                    style={{ width: 6, height: 6, background: "#4ade80" }}
+                  />
+                  {categories.length} LIVE
+                </span>
+              )}
+            </div>
+
+            {/* Arrow nav */}
+            <div className="flex gap-2">
+              {navButtons.map(({ fn, icon, disabled }, i) => (
+                <button
+                  key={i}
+                  onClick={fn}
+                  disabled={disabled}
+                  style={{
+                    width: 36,
+                    height: 36,
+                    background: disabled ? "#2e2e2e" : "#444",
+                    color: disabled ? "#555" : "#fff",
+                    border: "none",
+                    borderRadius: 8,
+                    cursor: disabled ? "not-allowed" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background .2s",
+                  }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path
+                      d={icon}
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              ))}
+            </div>
           </div>
-        )}
+
+          {/* ── Cards area ── */}
+          <div
+
+          >
+            {error ? (
+              /* Error state */
+              <div className="flex flex-col items-center justify-center py-14 text-center px-6">
+                <p className="font-black text-white text-base mb-1">Failed to load categories</p>
+                <p className="text-gray-500 text-xs mb-4">{error}</p>
+                <button
+                  onClick={load}
+                  style={{
+                    background: "#4A69E2",
+                    color: "#fff",
+                    border: "none",
+                    borderRadius: 10,
+                    padding: "10px 24px",
+                    fontWeight: 700,
+                    fontSize: 12,
+                    cursor: "pointer",
+                    letterSpacing: "1px",
+                  }}
+                >
+                  RETRY
+                </button>
+              </div>
+            ) : loading ? (
+              /* Skeleton */
+              <div className="grid" style={{ gridTemplateColumns: `repeat(${visible}, 1fr)` }}>
+                {Array.from({ length: visible }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))}
+              </div>
+            ) : (
+              /* Live cards */
+              <div
+                className="grid cat-fade"
+                style={{ gridTemplateColumns: `repeat(${visible}, 1fr)` }}
+              >
+                {shown.map((cat, i) => (
+                  <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+
 
       {/* ── Dot indicators ── */}
       {!loading && !error && categories.length > visible && (
