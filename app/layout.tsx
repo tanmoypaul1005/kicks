@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${rubik.className} antialiased`}>
         <CartProvider>
-          <div className="max-w-screen-xl mx-auto">
+          <div className="">
             <div className="mt-8">
               <Header />
             </div>

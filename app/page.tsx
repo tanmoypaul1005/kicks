@@ -28,7 +28,7 @@ export default function KicksPage() {
       `}</style>
 
       {/* HERO SECTION */}
-      <div className=" px-4 pt-6 pb-8">
+      <div className="max-w-screen-xl mx-auto px-4 pt-6 pb-8">
         {/* Big headline */}
         <div className="mb-5">
           <h1 className="hero-title text-gray-900">

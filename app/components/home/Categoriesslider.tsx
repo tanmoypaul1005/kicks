@@ -263,9 +263,7 @@ export default function CategoriesSlider(): ReactElement {
 
   return (
     <div
-      className="w-full max-w-2xl mx-auto"
-      style={{ fontFamily: "'Helvetica Neue', Arial, sans-serif" }}
-    >
+      className="w-full">
       <style>{`
         @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
         @keyframes fadeUp  { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
@@ -275,7 +273,7 @@ export default function CategoriesSlider(): ReactElement {
       {/* ── Header bar ── */}
       <div
         className="flex items-center justify-between px-5 py-4"
-        style={{ background: "#1a1a1a", borderRadius: "16px 16px 0 0" }}
+        style={{ background: "#1a1a1a" }}
       >
         <div className="flex items-center gap-3">
           <h2
@@ -340,7 +338,7 @@ export default function CategoriesSlider(): ReactElement {
         style={{
           background: "#1a1a1a",
           padding: "12px 2px 16px",
-          borderRadius: "0 0 16px 16px",
+        
         }}
       >
         {error ? (
