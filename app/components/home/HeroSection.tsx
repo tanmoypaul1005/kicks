@@ -1,6 +1,6 @@
+"use client";
 import Image from 'next/image';
-import React from 'react';
-
+ import React from 'react';
 
 function NikeHeroSVG() {
     return (
@@ -45,13 +45,22 @@ function NikeHeroSVG() {
     );
 }
 
+const images = [
+    "/heroSection.svg",
+    "/heroSection2.jpg",
+    "/heroSection3.jpg"
+];
+
 
 const HeroSection = () => {
+
+    const [active, setActive] = React.useState(1);
+
     return (
         <div className="relative rounded-2xl overflow-hidden bg-[#b45309]" style={{ minHeight: "340px" }}>
             {/* Background SVG */}
             <div className="absolute inset-0">
-                <Image src={"/heroSection.svg"} alt="" width={1300} height={900}/>
+                <Image src={images[active]} alt="" width={1300} height={900} className="w-full h-full object-cover" />
             </div>
 
             {/* Vertical side label */}
@@ -61,10 +70,19 @@ const HeroSection = () => {
 
             {/* Thumbnail stack - right side */}
             <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
-                {[0, 1].map(i => (
-                    <div key={i} className="w-16 h-16 rounded-lg overflow-hidden bg-amber-900 border-2 border-white border-opacity-30 cursor-pointer hover:border-opacity-80 transition-all">
-                        <NikeHeroSVG />
-                    </div>
+                {images.map((src, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setActive(i)}
+                        className={`w-16 h-16 rounded-lg overflow-hidden bg-amber-900 border-2 border-white cursor-pointer transition-all ${active === i ? 'border-opacity-100 scale-105' : 'border-opacity-30 hover:border-opacity-80'}`}
+                        aria-label={`Set hero ${i + 1}`}
+                    >
+                        {src.endsWith('.svg') ? (
+                            <NikeHeroSVG />
+                        ) : (
+                            <Image src={src} alt={`hero ${i + 1}`} width={64} height={64} className="w-full h-full object-cover" />
+                        )}
+                    </button>
                 ))}
             </div>
 
