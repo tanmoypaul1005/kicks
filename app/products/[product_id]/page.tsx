@@ -513,7 +513,9 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
             {/* Title & Rating */}
             <div>
-              <p className="section-label text-blue-600 mb-1.5">{category} · #{product?.id}</p>
+              <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-[12px] w-fit text-[12px] font-semibold">
+                New Release
+              </div>
               <h1 className="product-title text-gray-900 mb-3">{title}</h1>
               <div className="flex items-center gap-3 flex-wrap">
                 <Stars fill={5} />
