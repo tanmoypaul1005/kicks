@@ -88,9 +88,9 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
           <svg width="58" height="38" viewBox="0 0 58 38" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 24C0 10.7452 10.7452 0 24 0L58 0V14C58 27.2548 47.2548 38 34 38L0 38L0 24Z" fill="#4A69E2" />
           </svg>
-       <span className="absolute inset-0 flex items-center justify-center text-[9px] text-white font-bold uppercase tracking-wide">
-  NEW
-</span>
+          <span className="absolute inset-0 flex items-center justify-center text-[9px] text-white font-bold uppercase tracking-wide">
+            NEW
+          </span>
         </div>
 
         {/* Product image */}
@@ -260,10 +260,10 @@ function ProductModal({ product, onClose }: ProductModalProps) {
 // ── Product Grid (default export) ─────────────────────────────────────────
 export default function ProductGrid() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading]   = useState<boolean>(true);
-  const [error, setError]       = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Product | null>(null);
-  const [page, setPage]         = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const limit = 8;
 
   useEffect(() => {
