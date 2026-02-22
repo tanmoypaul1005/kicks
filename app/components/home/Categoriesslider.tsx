@@ -254,13 +254,6 @@ export default function CategoriesSlider(): ReactElement {
               <h2 className="text-white font-black text-[clamp(22px,5vw,34px)] tracking-tight leading-none">
                 CATEGORIES
               </h2>
-
-              {!loading && !error && (
-                <span className="flex items-center gap-1.5 font-bold font-mono text-[11px] tracking-[0.08em] text-green-400">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
-                  {categories.length} LIVE
-                </span>
-              )}
             </div>
 
             {/* Prev / Next */}
