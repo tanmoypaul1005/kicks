@@ -310,14 +310,14 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
     return (
       <div className="min-h-screen bg-[#f4f4f0] flex items-center justify-center">
         <div className="text-center p-8">
-          <p className="text-2xl font-black text-gray-900 mb-2" style={{ fontFamily: "'Barlow Condensed',sans-serif" }}>
+          <p className="text-2xl font-black text-gray-900 mb-2" >
             Failed to load product
           </p>
           <p className="text-gray-500 text-sm mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
             className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm"
-            style={{ fontFamily: "'Barlow Condensed',sans-serif", letterSpacing: "1px" }}
+            style={{ letterSpacing: "1px" }}
           >
             RETRY
           </button>
@@ -404,7 +404,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-16 items-start">
 
           {/* LEFT — Image Gallery */}
-         <div className="fade-up">
+          <div className="fade-up">
 
             {/* ── 2×2 grid: main image top-left (spans rows), 3 thumbs fill right + bottom-left ── */}
             <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3" style={{ height: "480px" }}>
@@ -543,7 +543,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               <div>
                 <p className="section-label text-gray-500 mb-2.5">
                   Color:{" "}
-                  <span style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "11px", letterSpacing: "0.5px", textTransform: "none" }}>
+                  <span style={{ fontWeight: 700, fontSize: "11px", letterSpacing: "0.5px", textTransform: "none" }}>
                     {colorways.find((c) => c.key === selectedColor)?.label}
                   </span>
                 </p>
@@ -615,7 +615,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               <button
                 onClick={handleAddToCart}
-                className={`add-btn flex-1 btn-primary flex items-center justify-center gap-2 rounded-xl transition-all ${added ? "bg-green-600 text-white" : "bg-gray-900 text-white hover:bg-blue-600"}`}
+                className={` flex-1 btn-primary flex items-center justify-center gap-2 rounded-xl transition-all ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
                 style={{ minHeight: "52px" }}
               >
                 {added ? (
@@ -645,7 +645,11 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 </svg>
               </button>
             </div>
-           
+
+            <div onClick={handleAddToCart} className="text-[16px] btn-primary cursor-pointer font-medium text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center">
+              Buy it now
+            </div>
+
           </div>
         </div>
 
@@ -746,7 +750,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
         {/* You May Also Like */}
         <div className="mt-8 sm:mt-12 pb-10">
           <div className="flex items-end justify-between mb-5">
-            <h2 className="fd font-black text-gray-900" style={{ fontSize: "clamp(22px,5vw,36px)", lineHeight: 1, fontFamily: "'Barlow Condensed',sans-serif" }}>
+            <h2 className="fd font-black text-gray-900" style={{ fontSize: "clamp(22px,5vw,36px)", lineHeight: 1 }}>
               YOU MAY ALSO LIKE
             </h2>
             <button className="btn-secondary text-blue-600 hover:underline text-xs">VIEW ALL →</button>
