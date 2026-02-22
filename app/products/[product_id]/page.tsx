@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, CSSProperties, ReactElement } from "react";
+import { useCart } from '../../context/CartProvider';
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Category {
@@ -222,6 +223,7 @@ export default function ProductPage({ productId = 3 }: ProductPageProps): ReactE
   const [activeTab, setActiveTab] = useState<string>("description");
   const [sizeError, setSizeError] = useState<boolean>(false);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
+  const { addItem } = useCart();
 
   // ── Fetch product ──
   useEffect(() => {
@@ -239,6 +241,21 @@ export default function ProductPage({ productId = 3 }: ProductPageProps): ReactE
   const handleAddToCart = (): void => {
     if (!selectedSize) { setSizeError(true); return; }
     setSizeError(false);
+    // add to cart via context
+    try {
+      if (product) {
+        addItem({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          qty: quantity,
+          size: selectedSize,
+          image: validImages[0] ?? null,
+        });
+      }
+    } catch (e) {
+      // noop
+    }
     setAdded(true);
     setTimeout(() => setAdded(false), 2200);
   };

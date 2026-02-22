@@ -184,7 +184,7 @@ export default function ReviewsAndFooter(): ReactElement {
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
 
         {/* Blue newsletter card — fully rounded on all sides */}
-        <div className="rounded-tl-[32px] rounded-tr-[32px]  px-[48px] pt-10 pb-18" style={{ background: "#4A6CF7", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", position: "relative", zIndex: 2, marginBottom: "-32px" }}>
+        <div className="rounded-tl-[32px] rounded-tr-[32px] px-[56px] pt-10 pb-18" style={{ background: "#4A6CF7", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", position: "relative", zIndex: 2, marginBottom: "-32px" }}>
           {/* Left */}
           <div style={{ flex: 1, minWidth: 240 }}>
             <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(22px,4vw,34px)", lineHeight: 1.05, color: "#fff", textTransform: "uppercase", margin: "0 0 8px" }}>

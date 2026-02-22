@@ -1,6 +1,9 @@
+"use client";
 import Link from 'next/link';
+import { useCart } from '../../context/CartProvider';
 
 const Header = () => {
+    const { count } = useCart();
     return (
         <nav className="bg-white border-b rounded-xl border-gray-100 sticky top-0 z-50">
             <div className="max-w-screen-xl mx-auto px-8 flex items-center justify-between h-[72px]">
@@ -39,7 +42,7 @@ const Header = () => {
                         <path d="M12 13.5234C14.2378 13.5234 16.4178 14.1551 18.1377 15.3008C20.073 16.5911 21.3038 18.4293 21.6982 20.6172C21.7881 21.1139 21.6661 21.6044 21.3662 21.9629C21.2301 22.126 21.0592 22.2569 20.8662 22.3457C20.6734 22.4344 20.4632 22.4792 20.251 22.4766H3.75C3.53751 22.4793 3.32685 22.4345 3.13379 22.3457C2.94082 22.2569 2.76993 22.126 2.63379 21.9629C2.33412 21.6045 2.21301 21.1147 2.30273 20.6182C2.69717 18.4301 3.92769 16.5916 5.86328 15.3008C7.58311 14.1547 9.76229 13.5235 12 13.5234ZM12 1.52344C13.3999 1.52344 14.6677 2.06332 15.5752 3.04297C16.4939 4.03491 16.9419 5.37068 16.8359 6.80371C16.6251 9.65903 14.4565 11.9766 12 11.9766C9.54356 11.9764 7.37155 9.65841 7.16406 6.80273C7.05951 5.35668 7.50426 4.0185 8.41699 3.03418C9.32018 2.06058 10.5924 1.52351 12 1.52344Z" fill="#232321" stroke="#232321" stroke-width="0.046875" />
                     </svg>
                     <button className="bg-[#FFA52F] text-white rounded-full w-7 h-7 flex items-center justify-center text-xs font-bold transition-colors">
-                        3
+                        {count}
                     </button>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useState, ChangeEvent, ReactElement } from "react";
+import { useCart } from "../context/CartProvider";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface ShoeColors {
@@ -113,11 +114,12 @@ export default function CartPage(): ReactElement {
   const [promoApplied, setPromoApplied] = useState<boolean>(false);
   const [removed, setRemoved]         = useState<boolean>(false);
   const [checkoutDone, setCheckoutDone] = useState<boolean>(false);
+  const { items, removeItem, updateQty } = useCart();
 
-  const unitPrice: number  = 130;
   const delivery: number   = 6.99;
+  const subtotal: number = items.reduce((s, it) => s + it.price * it.qty, 0);
   const discount: number   = promoApplied ? 13 : 0;
-  const itemTotal: number  = unitPrice * quantity - discount;
+  const itemTotal: number  = subtotal - discount;
 
   const handleCheckout = (): void => {
     setCheckoutDone(true);
@@ -197,88 +199,64 @@ export default function CartPage(): ReactElement {
               </div>
 
               {/* Cart Item or Empty State */}
-              {!removed ? (
-                <div className="p-4 sm:p-6">
-                  <div className="flex gap-4 sm:gap-6 items-start">
-                    {/* Shoe image */}
-                    <div className="w-28 sm:w-36 flex-shrink-0 rounded-xl overflow-hidden bg-blue-50" style={{ minHeight: "90px" }}>
-                      <CartShoe />
-                    </div>
-
-                    {/* Item details */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="product-name text-gray-900 leading-tight">DROPSET TRAINER SHOES</p>
-                          <p className="text-gray-500 text-xs mt-1">Men's Road Running Shoes</p>
-                          <p className="text-gray-500 text-xs">Enamel Blue / University White</p>
-                        </div>
-                        <span className="price-large text-blue-600 flex-shrink-0">
-                          ${(unitPrice * quantity - discount).toFixed(2)}
-                        </span>
-                      </div>
-
-                      {/* Size & Quantity selectors */}
-                      <div className="flex flex-wrap items-center gap-3 mt-3">
-                        {/* Size */}
-                        <div className="select-wrap">
-                          <select
-                            value={size}
-                            onChange={handleSizeChange}
-                            className="fd font-bold text-gray-700 text-xs bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "12px" }}
-                          >
-                            {sizeOptions.map((s) => (
-                              <option key={s} value={s}>Size {s}</option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* Quantity */}
-                        <div className="select-wrap">
-                          <select
-                            value={quantity}
-                            onChange={handleQuantityChange}
-                            className="fd font-bold text-gray-700 text-xs bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "12px" }}
-                          >
-                            {quantityOptions.map((q) => (
-                              <option key={q} value={q}>Quantity {q}</option>
-                            ))}
-                          </select>
+              {items.length > 0 ? (
+                <div className="p-4 sm:p-6 space-y-4">
+                  {items.map((it) => (
+                    <div key={it.id} className="flex gap-4 sm:gap-6 items-start bg-white rounded-xl p-3">
+                      <div className="w-28 sm:w-36 flex-shrink-0 rounded-xl overflow-hidden bg-blue-50" style={{ minHeight: "90px" }}>
+                        <div className="w-full h-full flex items-center justify-center">
+                          {it.image ? <img src={it.image} alt={it.title} className="w-full h-full object-contain" /> : <CartShoe />}
                         </div>
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <p className="product-name text-gray-900 leading-tight">{it.title}</p>
+                            <p className="text-gray-500 text-xs mt-1">{it.size ? `Size ${it.size}` : "One size"}</p>
+                          </div>
+                          <span className="price-large text-blue-600 flex-shrink-0">${(it.price * it.qty).toFixed(2)}</span>
+                        </div>
 
-                      {/* Actions */}
-                      <div className="flex items-center gap-4 mt-3">
-                        {/* Wishlist */}
-                        <button
-                          onClick={() => setWishlist(!wishlist)}
-                          className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
-                        >
-                          <svg
-                            className={`w-4 h-4 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`}
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            fill="none"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                          </svg>
-                        </button>
+                        <div className="flex flex-wrap items-center gap-3 mt-3">
+                          <div className="select-wrap">
+                            <select
+                              value={String(it.size ?? "")}
+                              onChange={(e) => { /* no-op: size not editable here */ }}
+                              className="fd font-bold text-gray-700 text-xs bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            >
+                              <option>{it.size ? `Size ${it.size}` : "Size"}</option>
+                            </select>
+                          </div>
 
-                        {/* Remove */}
-                        <button
-                          onClick={() => setRemoved(true)}
-                          className="text-gray-400 hover:text-red-500 transition-colors"
-                        >
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
+                          <div className="select-wrap">
+                            <select
+                              value={it.qty}
+                              onChange={(e) => updateQty(it.id, Number(e.target.value))}
+                              className="fd font-bold text-gray-700 text-xs bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            >
+                              {quantityOptions.map((q) => (
+                                <option key={q} value={q}>Quantity {q}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-4 mt-3">
+                          <button onClick={() => setWishlist(!wishlist)} className="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
+                            <svg className={`w-4 h-4 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                          </button>
+
+                          <button onClick={() => removeItem(it.id)} className="text-gray-400 hover:text-red-500 transition-colors">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               ) : (
                 /* Empty state */
@@ -288,12 +266,7 @@ export default function CartPage(): ReactElement {
                   </svg>
                   <p className="fd font-bold text-gray-400 text-lg mb-1">Your bag is empty</p>
                   <p className="text-gray-400 text-sm mb-4">Looks like you haven't added anything yet.</p>
-                  <button
-                    onClick={() => setRemoved(false)}
-                    className="checkout-btn bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm"
-                  >
-                    CONTINUE SHOPPING
-                  </button>
+                  <button onClick={() => {}} className="checkout-btn bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">CONTINUE SHOPPING</button>
                 </div>
               )}
             </div>
@@ -313,20 +286,18 @@ export default function CartPage(): ReactElement {
                 {/* Line items */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="label-sm text-gray-500">{removed ? "0 ITEMS" : "1 ITEM"}</span>
-                    <span className="fd font-bold text-gray-900">
-                      ${removed ? "0.00" : (unitPrice * quantity - discount).toFixed(2)}
-                    </span>
+                    <span className="label-sm text-gray-500">{items.length === 0 ? "0 ITEMS" : `${items.reduce((s, it) => s + it.qty, 0)} ITEM(s)`}</span>
+                    <span className="fd font-bold text-gray-900">${items.length === 0 ? "0.00" : subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="label-sm text-gray-500">Delivery</span>
-                    <span className="fd font-bold text-gray-900">{removed ? "—" : `$${delivery.toFixed(2)}`}</span>
+                    <span className="fd font-bold text-gray-900">{items.length === 0 ? "—" : `$${delivery.toFixed(2)}`}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="label-sm text-gray-500">Sales Tax</span>
                     <span className="fd font-bold text-gray-400">—</span>
                   </div>
-                  {promoApplied && !removed && (
+                  {promoApplied && items.length > 0 && (
                     <div className="flex justify-between items-center text-green-600 slide-in">
                       <span className="label-sm">Promo (KICKS10)</span>
                       <span className="fd font-bold">-$13.00</span>

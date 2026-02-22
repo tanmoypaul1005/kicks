@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
+import CartProvider from "./context/CartProvider";
 
 
 const rubik = Rubik({
@@ -24,12 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${rubik.className} antialiased`}>
-        <div className="max-w-screen-xl mx-auto">
-          <div className="mt-8">
-            <Header />
+        <CartProvider>
+          <div className="max-w-screen-xl mx-auto">
+            <div className="mt-8">
+              <Header />
+            </div>
+            {children}
           </div>
-          {children}
-        </div>
+        </CartProvider>
       </body>
     </html>
   );
