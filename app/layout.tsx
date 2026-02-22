@@ -24,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${rubik.className} antialiased`}>
-        <div className="max-w-screen-xl mx-auto ">
-        <Header />
-        {children}
+        <div className="max-w-screen-xl mx-auto">
+          <div className="mt-8">
+            <Header />
+          </div>
+          {children}
         </div>
       </body>
     </html>

@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import React from 'react';
 
 const Header = () => {
     return (
-        <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-            <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-between h-[52px]">
+        <nav className="bg-white border-b rounded-xl border-gray-100 sticky top-0 z-50">
+            <div className="max-w-screen-xl mx-auto px-8 flex items-center justify-between h-[7d2px]">
                 {/* Left nav */}
                 <div className="flex items-center gap-5 text-[16px] font-semibold text-[#232321]">
                     <Link href={"/"} className="flex items-center gap-1 nav-link transition-colors">
