@@ -158,7 +158,7 @@ function ProductCard({ product, index, onClick }: ProductCardProps) {
           <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
             View Product -
           </span>
-          <span style={{ fontSize: "13px", fontWeight: 700 }}>${product.price}</span>
+          <span className="text-[#FFA52F] text-[13px] font-bold">${product.price}</span>
         </Link>
       </div>
     </div>
