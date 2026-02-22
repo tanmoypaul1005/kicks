@@ -615,7 +615,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               <button
                 onClick={handleAddToCart}
-                className={` flex-1 btn-primary flex items-center justify-center gap-2 rounded-xl transition-all ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
+                className={` flex-1 btn-primary cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
                 style={{ minHeight: "52px" }}
               >
                 {added ? (
