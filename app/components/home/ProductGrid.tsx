@@ -286,7 +286,7 @@ export default function ProductGrid() {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <div className="p-4">
+      <div className="">
         {loading ? (
           /* Skeleton */
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
