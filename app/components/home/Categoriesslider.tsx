@@ -128,53 +128,37 @@ function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
   return (
     <div
       className={[
-        "relative overflow-hidden cursor-pointer mx-2.5 rounded-xl bg-[#f0f0eb]",
+        "relative overflow-hidden cursor-pointer mx-2.5 rounded-xl bg-white",
         "transition-[transform,box-shadow] duration-[220ms] ease-in-out",
-        hovered
-          ? "scale-[1.018] shadow-[0_10px_36px_rgba(0,0,0,0.2)]"
-          : "scale-100 shadow-[0_2px_8px_rgba(0,0,0,0.07)]",
       ].join(" ")}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image / SVG area */}
-      <div className="w-full h-[200px] flex items-center justify-center px-4 pt-5 pb-2.5">
+      <div className="w-full aspect-[4/3] overflow-hidden bg-gray-50 flex items-center justify-center">
         {isPlaceholder ? (
-          ShoeSVGs[svgIndex % ShoeSVGs.length]
+          <div className="w-full h-full p-4 flex items-center justify-center">{ShoeSVGs[svgIndex % ShoeSVGs.length]}</div>
         ) : (
           <img
             src={cat.image}
             alt={cat.name}
-            className="w-full h-full object-contain max-h-[170px]"
+            className="w-full h-full object-cover"
             onError={() => setImgError(true)}
           />
         )}
       </div>
 
       {/* Footer row */}
-      <div className="flex items-end justify-between px-4 pb-4 pt-1 min-h-[68px]">
-        <h3 className="font-black text-[14px] tracking-[0.05em] text-[#111] leading-[1.25] uppercase whitespace-pre-line">
-          {cat.name.replace(/ /g, "\n")}
+      <div className="flex items-center justify-between px-4 pb-4 pt-3 min-h-[72px]">
+        <h3 className="font-black text-sm tracking-[0.08em] text-[#111] leading-[1.15] uppercase">
+          {cat.name}
         </h3>
 
-        <button
-          className={[
-            "w-9 h-9 flex items-center justify-center shrink-0 ml-2",
-            "rounded-lg border-none cursor-pointer text-white",
-            "transition-colors duration-200",
-            hovered ? "bg-[#111]" : "bg-[#222]",
-          ].join(" ")}
-        >
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-            <path
-              d="M2 12L12 2M12 2H5M12 2v7"
-              stroke="white"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+ <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="48" height="48" rx="8" fill="#232321"/>
+<path d="M18.1668 17.1057H30.8947V29.8336M30.0108 17.9895L17.1061 30.8942" stroke="#E7E7E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
       </div>
     </div>
   );
@@ -245,75 +229,55 @@ export default function CategoriesSlider(): ReactElement {
 
       {/* Dark band */}
       <div className="bg-[#1a1a1a]">
-        <div className="max-w-screen-xl mx-auto pt-18">
+        <div className="max-w-screen-xl mx-auto pt-18 px-6">
+          {/* white rounded panel to match design */}
+          <div className="bg-white rounded-2xl overflow-hidden p-6">
 
-          {/* ── Header ── */}
-          <div className="flex items-center justify-between pb-4">
-            {/* Title + live badge */}
-            <div className="flex items-center gap-3">
-              <h2 className="text-white font-black text-[clamp(22px,5vw,34px)] tracking-tight leading-none">
-                CATEGORIES
-              </h2>
+            {/* ── Header ── */}
+            <div className="flex items-center justify-between pb-4">
+              {/* Title */}
+              <div className="flex items-center gap-3">
+                <h2 className="text-[#111] font-black text-[clamp(22px,5vw,34px)] tracking-tight leading-none">
+                  CATEGORIES
+                </h2>
+              </div>
+
+              {/* Prev / Next */}
+              <div className="flex gap-2">
+                <NavBtn fn={prev} icon="M9 2L4 7l5 5" disabled={current === 0 || loading} />
+                <NavBtn fn={next} icon="M5 2l5 5-5 5" disabled={current >= max || loading} />
+              </div>
             </div>
 
-            {/* Prev / Next */}
-            <div className="flex gap-2">
-              <NavBtn fn={prev} icon="M9 2L4 7l5 5" disabled={current === 0 || loading} />
-              <NavBtn fn={next} icon="M5 2l5 5-5 5" disabled={current >= max || loading} />
-            </div>
+            {/* ── Cards ── */}
+            {error ? (
+              <div className="flex flex-col items-center justify-center py-14 text-center px-6">
+                <p className="font-black text-[#111] text-base mb-1">Failed to load categories</p>
+                <p className="text-gray-500 text-xs mb-4">{error}</p>
+                <button
+                  onClick={load}
+                  className="bg-[#4A69E2] text-white border-none rounded-[10px] px-6 py-2.5 font-bold text-xs tracking-[1px] cursor-pointer hover:bg-[#3a59d2] transition-colors"
+                >
+                  RETRY
+                </button>
+              </div>
+            ) : loading ? (
+              <div className="grid grid-cols-2 gap-4">
+                {Array.from({ length: visible }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4 cat-fade">
+                {shown.map((cat, i) => (
+                  <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
+                ))}
+              </div>
+            )}
+
           </div>
-
-          {/* ── Cards ── */}
-          {error ? (
-            <div className="flex flex-col items-center justify-center py-14 text-center px-6">
-              <p className="font-black text-white text-base mb-1">Failed to load categories</p>
-              <p className="text-gray-500 text-xs mb-4">{error}</p>
-              <button
-                onClick={load}
-                className="bg-[#4A69E2] text-white border-none rounded-[10px] px-6 py-2.5 font-bold text-xs tracking-[1px] cursor-pointer hover:bg-[#3a59d2] transition-colors"
-              >
-                RETRY
-              </button>
-            </div>
-          ) : loading ? (
-            <div className="grid grid-cols-2">
-              {Array.from({ length: visible }).map((_, i) => (
-                <SkeletonCard key={i} />
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 cat-fade">
-              {shown.map((cat, i) => (
-                <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
-              ))}
-            </div>
-          )}
-
         </div>
       </div>
-
-      {/* ── Dot indicators ── */}
-      {!loading && !error && categories.length > visible && (
-        <div className="flex justify-center gap-1.5 mt-3">
-          {Array.from({ length: max + 1 }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={[
-                "h-1.5 rounded-full border-none p-0 cursor-pointer transition-all duration-[250ms]",
-                current === i ? "w-5 bg-[#1a1a1a]" : "w-1.5 bg-[#ccc]",
-              ].join(" ")}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* ── Page counter ── */}
-      {!loading && !error && categories.length > 0 && (
-        <p className="text-center mt-2 text-[11px] text-[#aaa] tracking-[0.08em] font-semibold">
-          {current + 1}–{Math.min(current + visible, categories.length)} of {categories.length}
-        </p>
-      )}
     </div>
   );
 }
