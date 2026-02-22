@@ -33,6 +33,8 @@ export default function RootLayout({
             {children}
           </div>
         </CartProvider>
+
+        <div className="text-black text-center mt-[28px] mb-[18px]">© All rights reserved </div>
       </body>
     </html>
   );

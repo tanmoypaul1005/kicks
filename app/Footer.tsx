@@ -242,26 +242,26 @@ export default function ReviewsAndFooter(): ReactElement {
         </div>
 
         {/* ── FOOTER — overlaps behind the blue card with big rounded top ── */}
-        <div style={{ background: "#111111", borderRadius: "40px 40px 0 0", paddingTop: 34, position: "relative", zIndex: 100 }}>
+        <div className="rounded-[40px] bg-[#111111]" style={{ paddingTop: 34, position: "relative", zIndex: 100 }}>
           <div style={{ padding: "0 40px" }}>
             {/* Footer grid */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 32, marginBottom: 32 }}>
 
               {/* About us */}
               <div style={{ gridColumn: "span 1" }}>
-                <h4 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 14, color: "#FFA52F", letterSpacing: "0.5px", margin: "0 0 12px" }}>About us</h4>
-                <p style={{ fontFamily: "'Barlow',sans-serif", fontSize: 12, color: "#E7E7E3", lineHeight: 1.65, margin: 0 }}>
+                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 12px" }}>About us</div>
+                <p className="text-[20px] text-[#E7E7E3]" style={{ lineHeight: 1.65, margin: 0 }}>
                   We are the biggest hyperstore in the universe. We got you all cover with our exclusive collections and latest drops.
                 </p>
               </div>
 
               {/* Categories */}
               <div>
-                <h4 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 14, color: "#FFA52F", letterSpacing: "0.5px", margin: "0 0 12px" }}>Categories</h4>
+                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 8px" }}>Categories</div>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {categoryLinks.map((item) => (
-                    <li key={item} style={{ marginBottom: 8 }}>
-                      <a href="#" className="fl" style={{ fontFamily: "'Barlow',sans-serif", fontSize: 12, color: "#9ca3af", textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
+                    <li key={item}>
+                      <a href="#" className="fl text-[20px] text-[#E7E7E3]" style={{ textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
                     </li>
                   ))}
                 </ul>
@@ -269,11 +269,11 @@ export default function ReviewsAndFooter(): ReactElement {
 
               {/* Company */}
               <div>
-                <h4 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 14, color: "#FFA52F", letterSpacing: "0.5px", margin: "0 0 12px" }}>Company</h4>
+                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 8px" }}>Company</div>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {companyLinks.map((item) => (
-                    <li key={item} style={{ marginBottom: 8 }}>
-                      <a href="#" className="fl" style={{ fontFamily: "'Barlow',sans-serif", fontSize: 12, color: "#9ca3af", textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
+                    <li key={item}>
+                      <a href="#" className="fl text-[20px] text-[#E7E7E3]" style={{ textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
                     </li>
                   ))}
                 </ul>
@@ -281,13 +281,12 @@ export default function ReviewsAndFooter(): ReactElement {
 
               {/* Follow us */}
               <div>
-                <h4 style={{ fontWeight: 700, fontSize: 14, color: "#FFA52F", letterSpacing: "0.5px", margin: "0 0 12px" }}>Follow us</h4>
+                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 12px" }}>Follow us</div>
                 <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
                   {/* Facebook */}
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 10C20 4.48 15.52 0 10 0C4.48 0 0 4.48 0 10C0 14.84 3.44 18.87 8 19.8V13H6V10H8V7.5C8 5.57 9.57 4 11.5 4H14V7H12C11.45 7 11 7.45 11 8V10H14V13H11V19.95C16.05 19.45 20 15.19 20 10Z" fill="#E7E7E3" />
                   </svg>
-
 
                   {/* Instagram */}
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -323,20 +322,8 @@ export default function ReviewsAndFooter(): ReactElement {
                 </clipPath>
               </defs>
             </svg>
-
-
-            {/* Divider + copyright */}
-            <div style={{ borderTop: "1px solid #1f2937", paddingTop: 16, paddingBottom: 16 }}>
-              <p style={{ textAlign: "center", fontFamily: "'Barlow',sans-serif", fontSize: 11, color: "#4b5563", margin: 0 }}>
-                © All rights reserved
-              </p>
-            </div>
           </div>
-
-          {/* Giant KICKS watermark */}
-
         </div>
-
       </div>
     </div>
   );
