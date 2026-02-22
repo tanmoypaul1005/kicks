@@ -202,11 +202,12 @@ export default function ReviewsAndFooter(): ReactElement {
                   onChange={handleEmailChange}
                   placeholder="Email address"
                   required
-                  style={{ fontFamily: "'Barlow',sans-serif", fontSize: 13, padding: "10px 16px", border: "1.5px solid rgba(255,255,255,0.7)", borderRadius: 6, outline: "none", flex: 1, minWidth: 180, maxWidth: 280, color: "#374151", background: "#fff" }}
+                  className="text-[#E7E7E3] border border-[#FFFFFF]"
+                  style={{ fontSize: 13, padding: "10px 16px", borderRadius: 6, outline: "none", flex: 1, minWidth: 180, maxWidth: 280 }}
                 />
                 <button
                   type="submit"
-                  style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", background: "#111", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", cursor: "pointer", whiteSpace: "nowrap" }}
+                  style={{ fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", background: "#111", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", cursor: "pointer", whiteSpace: "nowrap" }}
                 >
                   SUBMIT
                 </button>
