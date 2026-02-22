@@ -598,14 +598,13 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                       key={s}
                       disabled={unavail}
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
-                      className={`size-btn relative py-2.5 rounded-lg border text-sm transition-all fd font-bold
+                      className={`size-btn text-[14px] font-medium relative py-2.5 rounded-lg border text-sm transition-all fd 
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
                             ? "border-[#232321] bg-[#232321] text-white"
                             : "border-gray-200 text-gray-700 bg-white cursor-pointer hover:border-[#232321]"
                         }`}
-                      style={{ fontWeight: 700, fontSize: "13px" }}
                     >
                       {s}
                       {unavail && (
