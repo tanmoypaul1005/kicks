@@ -96,12 +96,6 @@ const colorways: Colorway[] = [
   { key: "grey", label: "Fog Grey", hex: "#6b7280" },
 ];
 
-const reviews: Review[] = [
-  { name: "Jordan M.", rating: 5, date: "Jan 12, 2026", text: "Absolutely fire. The quality is insane for the price. Wore them to the gym and got compliments all day." },
-  { name: "Aisha K.", rating: 5, date: "Jan 8, 2026", text: "Fits true to size. Super comfortable right out of the box. The colorway is even better in person." },
-  { name: "Dante R.", rating: 4, date: "Dec 29, 2025", text: "Great shoe overall. Docking one star because shipping took a bit longer than expected. But worth it!" },
-];
-
 // ── SVG Shoe Main ─────────────────────────────────────────────────────────
 function ProductShoeMain({ colorway }: ProductShoeMainProps): ReactElement {
   const palettes: Record<ColorwayKey, ColorPalette> = {
@@ -494,12 +488,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-[12px] w-fit text-[12px] font-semibold">
                 New Release
               </div>
-              <h1 className="product-title text-gray-900 mb-3">{title}</h1>
-              <div className="flex items-center gap-3 flex-wrap">
-                <Stars fill={5} />
-                <span className="breadcrumb text-gray-500">(128 reviews)</span>
-                <span className="breadcrumb text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded">In Stock</span>
-              </div>
+              <h1 className="product-title text-gray-900">{title}</h1>
             </div>
 
             {/* Price */}
