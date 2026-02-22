@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, CSSProperties, ReactElement } from "react";
 import { useCart } from '../../context/CartProvider';
+import { useParams } from "next/navigation";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Category {
@@ -213,6 +214,8 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
   const [product, setProduct]         = useState<Product | null>(null);
   const [loading, setLoading]         = useState<boolean>(true);
   const [error, setError]             = useState<string | null>(null);
+  const params = useParams() as { product_id?: string };
+  const pid = Number(params?.product_id ?? product_id ?? 3);
 
   const [selectedColor, setSelectedColor] = useState<ColorwayKey>("black");
   const [selectedSize,  setSelectedSize]  = useState<number | null>(null);
@@ -229,14 +232,14 @@ export default function ProductPage({ product_id  }: ProductPageProps): ReactEle
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`https://api.escuelajs.co/api/v1/products/${product_id}`)
+    fetch(`https://api.escuelajs.co/api/v1/products/${pid}`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<Product>;
       })
       .then((data) => { setProduct(data); setLoading(false); })
       .catch((err: Error) => { setError(err.message); setLoading(false); });
-  }, [product_id]);
+  }, [pid]);
 
   const handleAddToCart = (): void => {
     if (!selectedSize) { setSizeError(true); return; }
