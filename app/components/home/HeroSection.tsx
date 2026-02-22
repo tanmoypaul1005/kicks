@@ -55,7 +55,7 @@ const HeroSection = () => {
             </div>
 
             {/* Vertical side label */}
-            <div className="absolute left-0 top-0 bottom-0 w-6 flex items-center justify-center h-fit px-5 py-5 bg-black bg-opacity-20 z-10">
+            <div className="absolute rounded-tr-[16px] rounded-br-[16px] left-0 top-5 bottom-0 w-6 flex items-center justify-center h-fit px-4 py-5 bg-black bg-opacity-20 z-10">
                 <span className="vertical-text">Nike product of the year</span>
             </div>
 
