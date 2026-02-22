@@ -271,12 +271,9 @@ export default function CategoriesSlider(): ReactElement {
       `}</style>
 
       <div className="bg-[#1a1a1a]">
-        <div className="max-w-screen-xl mx-auto ">
+        <div className="max-w-screen-xl mx-auto pt-18">
           {/* ── Header bar ── */}
-          <div
-            className="flex items-center justify-between py-4"
-
-          >
+          <div className="flex items-center justify-between pb-4">
             <div className="flex items-center gap-3">
               <h2
                 className="text-white font-black"
