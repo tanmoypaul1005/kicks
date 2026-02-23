@@ -1,7 +1,7 @@
 "use client";
 import { useState, ReactElement } from "react";
 import { useCart } from '../../context/CartProvider';
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetProductByIdQuery } from "@/lib/api/productApi";
 
 // ── Types ─────────────────────────────────────────────────────────────────
@@ -212,10 +212,10 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
   const [added, setAdded] = useState<boolean>(false);
   const [activeImg, setActiveImg] = useState<number>(0);
   const [wishlist, setWishlist] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<string>("description");
   const [sizeError, setSizeError] = useState<boolean>(false);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
   const { addItem } = useCart();
+  const router = useRouter();
 
   const handleAddToCart = (): void => {
     if (!selectedSize) { setSizeError(true); return; }
@@ -237,6 +237,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
     }
     setAdded(true);
     setTimeout(() => setAdded(false), 2200);
+    router.push('/cart');
   };
 
   const handleImgError = (i: number): void =>
