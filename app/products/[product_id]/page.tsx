@@ -339,7 +339,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               {/* MAIN IMAGE — top-left, spans 2 rows */}
               <div
-                className="rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
+                className="rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
                 onClick={() => setActiveImg(0)}
               >
 
@@ -349,7 +349,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     <img
                       src={validImages[activeImg] ?? validImages[0]}
                       alt={title}
-                      className="w-full h-full object-cover rounded-xl"
+                      className="w-full h-full object-cover rounded-xl transition-transform duration-500 ease-out hover:scale-[1.02]"
                     />
                   ) : (
                     <ProductShoeMain colorway={selectedColor} />
@@ -364,21 +364,21 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 return (
                   <button
                     onClick={() => setActiveImg(1)}
-                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 w-full h-full hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 1 ? "border-blue-600" : "border-transparent"}`}
+                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-200 w-full h-full hover:scale-[1.03] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] active:scale-[1.01] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 1 ? "border-blue-600" : "border-transparent"}`}
                   >
                     {isPlaceholder ? (
                       <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                         <ThumbShoe color={colorways[1].key} active={activeImg === 1} />
                       </div>
                     ) : (
-                      <img src={img} alt={`${title} 2`} className="w-full h-full object-cover" onError={() => handleImgError(1)} />
+                      <img src={img} alt={`${title} 2`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]" onError={() => handleImgError(1)} />
                     )}
                   </button>
                 );
               })() : (
                 <button
                   onClick={() => { setSelectedColor(colorways[1].key); setActiveImg(1); }}
-                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[1].key ? "border-blue-600" : "border-transparent"}`}
+                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] active:scale-[1.01] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[1].key ? "border-blue-600" : "border-transparent"}`}
                 >
                   <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                     <ThumbShoe color={colorways[1].key} active={selectedColor === colorways[1].key} />
@@ -393,14 +393,14 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 return (
                   <button
                     onClick={() => setActiveImg(2)}
-                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 w-full h-full hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 2 ? "border-blue-600" : "border-transparent"}`}
+                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-200 w-full h-full hover:scale-[1.03] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] active:scale-[1.01] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 2 ? "border-blue-600" : "border-transparent"}`}
                   >
                     {isPlaceholder ? (
                       <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                         <ThumbShoe color={colorways[2].key} active={activeImg === 2} />
                       </div>
                     ) : (
-                      <img src={img} alt={`${title} 3`} className="w-full h-full object-cover" onError={() => handleImgError(2)} />
+                      <img src={img} alt={`${title} 3`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.03]" onError={() => handleImgError(2)} />
                     )}
                     {/* "+N more" overlay on last thumb if >4 images */}
                     {allImages.length > 4 && (
@@ -413,7 +413,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               })() : (
                 <button
                   onClick={() => { setSelectedColor(colorways[2].key); setActiveImg(2); }}
-                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[2].key ? "border-blue-600" : "border-transparent"}`}
+                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] active:scale-[1.01] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[2].key ? "border-blue-600" : "border-transparent"}`}
                 >
                   <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                     <ThumbShoe color={colorways[2].key} active={selectedColor === colorways[2].key} />
@@ -456,7 +456,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     <button
                       key={c.key}
                       onClick={() => setSelectedColor(c.key)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${c.swatchClass} ${selectedColor === c.key ? "border-white ring-2 ring-offset-2 ring-offset-[#f4f4f0] ring-gray-900" : "border-transparent"}`}
+                      className={`w-8 h-8 rounded-full border-2 transition-all duration-200 ease-out hover:scale-110 active:scale-95 ${c.swatchClass} ${selectedColor === c.key ? "border-white ring-2 ring-offset-2 ring-offset-[#f4f4f0] ring-gray-900" : "border-transparent"}`}
                       title={c.label}
                     />
                   ))}
@@ -485,7 +485,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                       key={s}
                       disabled={unavail}
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
-                      className={` text-[14px] font-medium relative py-2.5 rounded-lg w-[50px] border text-sm transition-all 
+                      className={` text-[14px] font-medium relative py-2.5 rounded-lg w-12.5 border text-sm transition-all duration-200 
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
@@ -511,14 +511,14 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             {/* Quantity + Cart */}
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white">
-                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-bold">−</button>
+                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 font-bold">−</button>
                 <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-12 text-center">{quantity}</span>
-                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-bold">+</button>
+                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 font-bold">+</button>
               </div>
 
               <button
                 onClick={handleAddToCart}
-                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all min-h-13  font-bold text-[14px] tracking-[1.5px] uppercase ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
+                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all duration-200 min-h-13 font-bold text-[14px] tracking-[1.5px] uppercase hover:brightness-110 active:scale-[0.99] ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
               >
                 {added ? (
                   <>
@@ -539,7 +539,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               <button
                 onClick={() => setWishlist(!wishlist)}
-                className={`rounded-xl border-2 flex items-center justify-center transition-all hover:scale-105 w-13 h-13 ${wishlist ? "border-red-200 bg-red-50" : "border-gray-200 bg-white"}`}
+                className={`rounded-xl border-2 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 w-13 h-13 ${wishlist ? "border-red-200 bg-red-50" : "border-gray-200 bg-white"}`}
               >
                 <svg className={`w-5 h-5 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -547,7 +547,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               </button>
             </div>
 
-            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-bold tracking-[1.5px]">
+            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-bold tracking-[1.5px] transition-all duration-200 hover:bg-[#3f5fd9] active:scale-[0.99]">
               Buy it now
             </div>
 
@@ -564,7 +564,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {relatedProducts.map((p, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+              <div key={i} className="bg-white rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-all duration-200 hover:shadow-[0_10px_24px_rgba(0,0,0,0.10)] shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <div className="relative h-32 sm:h-40 bg-gray-50 flex items-center justify-center p-4">
                   <span className="absolute top-2 left-2 font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-wide">{p.badge}</span>
                   <ThumbShoe color={p.color} active={false} />

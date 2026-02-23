@@ -84,7 +84,7 @@ const Header = () => {
                         <UserIcon />
 
                         {/* Cart badge — both mobile & desktop */}
-                        <Link href="/cart" >
+                        <Link className='cursor-pointer' href="/cart" >
                             <CartBadge />
                         </Link>
                     </div>

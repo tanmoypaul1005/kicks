@@ -3,8 +3,16 @@ import HeroSection from "./components/home/HeroSection";
 import ProductGrid from "./components/home/ProductGrid";
 import CategoriesSlider from "./components/home/Categoriesslider";
 import Review from "./components/Review";
+import { motion } from "framer-motion";
 
 export default function KicksPage() {
+
+  const fadeUp = {
+    initial: { opacity: 0, y: 18 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.45, ease: "easeOut" as const },
+    viewport: { once: true, amount: 0.2 },
+  };
 
   return (
     <div className="min-h-screen">
@@ -28,31 +36,44 @@ export default function KicksPage() {
       `}</style>
 
       {/* HERO SECTION */}
-      <div className="max-w-screen-xl mx-auto  pt-6 pb-8">
+      <div className="max-w-7xl mx-auto  pt-6 pb-8">
         {/* Big headline */}
-        <div className="mb-5">
+        <motion.div className="mb-5" {...fadeUp}>
           <h1 className="hero-title text-gray-900">
             DO IT <span className="text-blue-600">RIGHT</span>
           </h1>
-        </div>
+        </motion.div>
 
         {/* Hero Card */}
-        <HeroSection />
+        <motion.div {...fadeUp} transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}>
+          <HeroSection />
+        </motion.div>
 
         {/* NEW DROPS SECTION */}
-        <div className="mt-10">
+        <motion.div
+          className="mt-10"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.12 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
           <div className="flex items-end justify-between mb-5 text-[74px] font-semibold text-[#232321]">
-            <h2 className="section-title ">
+            <motion.h2 className="section-title " initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.35, delay: 0.18 }} viewport={{ once: true }}>
               DON'T MISS OUT<br />NEW DROPS
-            </h2>
-            <button className="new-drops-btn btn text-white px-4 py-2 rounded text-xs uppercase tracking-widest transition-colors whitespace-nowrap">
+            </motion.h2>
+            <motion.button
+              whileHover={{ y: -1, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 24 }}
+              className="new-drops-btn btn text-white px-4 py-2 rounded text-xs uppercase tracking-widest transition-colors whitespace-nowrap"
+            >
               SHOP NEW DROPS
-            </button>
+            </motion.button>
           </div>
 
           {/* Product Grid */}
           <ProductGrid />
-        </div>
+        </motion.div>
       </div>
 
       <CategoriesSlider />
