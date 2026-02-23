@@ -136,7 +136,7 @@ function ProductCard({ product, index }: ProductCardProps) {
             transition: "background 0.2s ease",
           }}
         >
-          <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+          <span className="cursor-pointer" style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
             View Product -
           </span>
           <span className="text-[#FFA52F] text-[13px] font-bold">${product.price}</span>

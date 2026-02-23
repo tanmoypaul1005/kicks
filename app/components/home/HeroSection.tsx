@@ -57,7 +57,7 @@ const HeroSection = () => {
     const [active, setActive] = React.useState(1);
 
     return (
-        <div className="relative rounded-2xl overflow-hidden bg-[#b45309]" style={{ minHeight: "340px" }}>
+        <div className="relative rounded-[30px] overflow-hidden bg-[#b45309]" style={{ minHeight: "340px" }}>
             {/* Background SVG */}
             <div className="absolute inset-0">
                 <Image src={images[active]} alt="" width={1300} height={900} className="w-full h-full object-cover" />
