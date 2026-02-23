@@ -511,7 +511,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                       key={s}
                       disabled={unavail}
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
-                      className={` text-[14px] font-medium relative py-2.5 rounded-lg border text-sm transition-all font-['Barlow_Condensed'] 
+                      className={` text-[14px] font-medium relative py-2.5 rounded-lg w-[50px] border text-sm transition-all font-['Barlow_Condensed'] 
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
