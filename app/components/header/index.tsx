@@ -84,7 +84,9 @@ const Header = () => {
                         <UserIcon />
 
                         {/* Cart badge — both mobile & desktop */}
-                        <CartBadge />
+                        <Link href="/cart" >
+                            <CartBadge />
+                        </Link>
                     </div>
                 </div>
             </nav>

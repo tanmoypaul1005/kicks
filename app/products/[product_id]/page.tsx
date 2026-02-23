@@ -454,13 +454,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               <span className="font-['Barlow_Condensed'] font-bold text-sm text-green-600 bg-green-50 px-2 py-0.5 rounded">Save ${Math.round(price * 0.2)}</span>
             </div>
 
-            {/* Feature chips */}
-            <div className="flex flex-wrap gap-2">
-              {["Premium Quality", "Fast Shipping", "Easy Returns", "Secure Payment"].map((f) => (
-                <span key={f} className="font-['Barlow_Condensed'] font-semibold text-[12px] tracking-[0.8px] bg-gray-100 text-gray-600 px-3 py-1 rounded-full">{f}</span>
-              ))}
-            </div>
-
             {/* Color selector */}
             {!hasRealImages && (
               <div>
