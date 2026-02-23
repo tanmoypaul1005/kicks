@@ -351,12 +351,12 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               {/* MAIN IMAGE — top-left, spans 2 rows */}
               <div
-                className="relative bg-white rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
+                className="rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
                 onClick={() => setActiveImg(0)}
               >
 
                 {/* Main image content */}
-                <div className="w-full h-full p-6 flex items-center justify-center">
+                <div className="w-full h-full flex items-center justify-center">
                   {hasRealImages ? (
                     <img
                       src={validImages[activeImg] ?? validImages[0]}
@@ -366,13 +366,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                   ) : (
                     <ProductShoeMain colorway={selectedColor} />
                   )}
-                </div>
-
-                {/* Colorway label pill */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-[10px] px-3 py-1 rounded-full font-['Barlow_Condensed'] font-semibold tracking-wide whitespace-nowrap">
-                  {hasRealImages
-                    ? title
-                    : colorways.find((c) => c.key === selectedColor)?.label}
                 </div>
               </div>
 
