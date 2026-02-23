@@ -1,5 +1,6 @@
 "use client";
 import { useState, ChangeEvent, FormEvent, ComponentType, ReactElement } from "react";
+import Review from "./components/Review";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Review {
@@ -16,13 +17,6 @@ interface Review {
 interface StarRatingProps {
   rating: number;
 }
-
-// ── Constants ─────────────────────────────────────────────────────────────
-const reviews: Review[] = [
-  { id: 1, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "JD", avatarBg: "bg-orange-400", shoeImg: "shoe1" },
-  { id: 2, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "AM", avatarBg: "bg-blue-300", shoeImg: "shoe2" },
-  { id: 3, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "KL", avatarBg: "bg-gray-700", shoeImg: "shoe3" },
-];
 
 const categoryLinks: string[] = ["Runners", "Sneakers", "Basketball", "Outdoor", "Golf", "Hiking"];
 const companyLinks: string[] = ["About", "Contact", "Blogs"];
@@ -100,7 +94,7 @@ function StarRating({ rating }: StarRatingProps): ReactElement {
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
-      <span className="text-xs font-bold text-gray-700 ml-1" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+      <span className="ml-1 text-xs font-bold text-gray-700 font-['Barlow_Condensed']">
         {rating.toFixed(1)}
       </span>
     </div>
@@ -121,107 +115,51 @@ export default function ReviewsAndFooter(): ReactElement {
   };
 
   return (
-    <div style={{ background: "#f4f4f0", fontFamily: "'Barlow', sans-serif" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
-        * { box-sizing: border-box; }
-        .kicks-wm {
-          font-family: 'Barlow Condensed', sans-serif;
-          font-weight: 900;
-          font-size: clamp(100px, 26vw, 210px);
-          line-height: 0.82;
-          color: white;
-          letter-spacing: -4px;
-          user-select: none;
-          white-space: nowrap;
-          text-align: center;
-          opacity: 0.07;
-          display: block;
-          overflow: hidden;
-        }
-        .rv-card { transition: transform 0.2s, box-shadow 0.2s; }
-        .rv-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.13); }
-        .fl:hover { color: #3b82f6; }
-        .si:hover { background: #2563eb !important; color: white !important; }
-      `}</style>
+    <div className="bg-[#f4f4f0] box-border">
 
       {/* ── REVIEWS ── */}
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
-          <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(28px,6vw,40px)", lineHeight: 1, letterSpacing: "-0.5px", color: "#111827", margin: 0 }}>
-            REVIEWS
-          </h2>
-          <button style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", background: "#2563eb", color: "#fff", border: "none", borderRadius: 6, padding: "8px 16px", cursor: "pointer" }}>
-            SEE ALL
-          </button>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 16 }}>
-          {reviews.map((r, i) => {
-            const ShoeComponent: ComponentType = ShoeSVGs[i];
-            return (
-              <div key={r.id} className="rv-card" style={{ background: "#fff", borderRadius: 18, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }}>
-                <div style={{ padding: "16px 16px 12px", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 14, color: "#111827", margin: "0 0 4px" }}>{r.title}</h3>
-                    <p style={{ fontFamily: "'Barlow',sans-serif", fontSize: 11, color: "#6b7280", margin: "0 0 8px", lineHeight: 1.4 }}>{r.text}</p>
-                    <StarRating rating={r.rating} />
-                  </div>
-                  <div className={r.avatarBg} style={{ width: 40, height: 40, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: "'Barlow Condensed',sans-serif" }}>
-                    {r.initials}
-                  </div>
-                </div>
-                <div style={{ height: 160 }}>
-                  <ShoeComponent />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <Review />
 
       {/* ── NEWSLETTER + FOOTER stacked container ── */}
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+      <div className="mx-auto max-w-7xl px-6">
 
         {/* Blue newsletter card — fully rounded on all sides */}
-        <div className="rounded-tl-[32px] rounded-tr-[32px] px-[56px] pt-10 pb-18" style={{ background: "#4A6CF7", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 32, flexWrap: "wrap", position: "relative", zIndex: 2, marginBottom: "-32px" }}>
+        <div className="relative z-2 -mb-8 flex flex-wrap items-center justify-between gap-8 rounded-tl-4xl rounded-tr-4xl bg-[#4A6CF7] px-14 pt-10 pb-18">
           {/* Left */}
-          <div style={{ flex: 1, minWidth: 240 }}>
-            <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "clamp(22px,4vw,34px)", lineHeight: 1.05, color: "#fff", textTransform: "uppercase", margin: "0 0 8px" }}>
+          <div className="min-w-60 flex-1">
+            <h2 className="mb-2 font-['Barlow_Condensed'] text-[clamp(22px,4vw,34px)] font-black uppercase leading-[1.05] text-white">
               JOIN OUR KICKSPLUS<br />CLUB &amp; GET 15% OFF
             </h2>
-            <p style={{ fontFamily: "'Barlow',sans-serif", fontSize: 13, color: "#bfdbfe", margin: "0 0 20px" }}>
+            <p className="mb-5 text-[13px] text-blue-200">
               Sign up for free! Join the community.
             </p>
 
             {!submitted ? (
-              <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <form onSubmit={handleSubmit} className="flex flex-wrap gap-2">
                 <input
                   type="email"
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="Email address"
                   required
-                  className="text-[#E7E7E3] border border-[#FFFFFF] placeholder-[#E7E7E3]"
-                  style={{ fontSize: 13, padding: "10px 16px", borderRadius: 6, outline: "none", flex: 1, minWidth: 180, maxWidth: 280 }}
+                  className="max-w-70 min-w-45 flex-1 rounded-md border border-white px-4 py-2.5 text-[13px] text-[#E7E7E3] placeholder-[#E7E7E3] outline-none"
                 />
                 <button
                   type="submit"
-                  className="bg-[#232321]"
-                  style={{ fontWeight: 700, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", cursor: "pointer", whiteSpace: "nowrap" }}
+                  className="cursor-pointer whitespace-nowrap rounded-md bg-[#232321] px-5 py-2.5 font-['Barlow_Condensed'] text-[12px] font-bold uppercase tracking-[1.5px] text-white"
                 >
                   SUBMIT
                 </button>
               </form>
             ) : (
-              <p style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: 14, color: "#fff" }}>
+              <p className="font-['Barlow_Condensed'] text-[14px] font-bold text-white">
                 🎉 You're in! Check your email for your 15% discount.
               </p>
             )}
           </div>
 
           {/* Right: KICKS wordmark */}
-          <div style={{ flexShrink: 0, position: "relative" }}>
+          <div className="relative shrink-0">
             <svg width="260" height="65" viewBox="0 0 351 88" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clipnl)">
                 <path d="M88.074 87.9999C87.1855 87.9999 86.4182 87.674 85.772 87.0221C85.1258 86.3703 84.8027 85.5962 84.8027 84.6999V5.74434C84.8027 4.84804 85.1258 4.07397 85.772 3.42211C86.4182 2.77026 87.1855 2.44434 88.074 2.44434H112.791C113.679 2.44434 114.447 2.77026 115.093 3.42211C115.739 4.07397 116.062 4.84804 116.062 5.74434V84.6999C116.062 85.5962 115.739 86.3703 115.093 87.0221C114.447 87.674 113.679 87.9999 112.791 87.9999H88.074Z" fill="white" />
@@ -235,7 +173,7 @@ export default function ReviewsAndFooter(): ReactElement {
               </defs>
             </svg>
             {/* Orange + badge */}
-            <span style={{ position: "absolute", top: -10, right: -14 }}>
+            <span className="absolute -top-2.5 -right-3.5">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13 0.0234375C20.1552 0.0234375 25.9766 5.84482 25.9766 13C25.9766 20.1552 20.1552 25.9766 13 25.9766C5.84482 25.9766 0.0234375 20.1552 0.0234375 13C0.0234375 5.84482 5.84482 0.0234375 13 0.0234375ZM13 6.97656C12.7286 6.97656 12.4683 7.08444 12.2764 7.27637C12.0844 7.4683 11.9766 7.72857 11.9766 8V11.9766H8C7.72857 11.9766 7.4683 12.0844 7.27637 12.2764C7.08444 12.4683 6.97656 12.7286 6.97656 13C6.97656 13.2714 7.08444 13.5317 7.27637 13.7236C7.4683 13.9156 7.72857 14.0234 8 14.0234H11.9766V18C11.9766 18.2714 12.0844 18.5317 12.2764 18.7236C12.4683 18.9156 12.7286 19.0234 13 19.0234C13.2714 19.0234 13.5317 18.9156 13.7236 18.7236C13.9156 18.5317 14.0234 18.2714 14.0234 18V14.0234H18C18.2714 14.0234 18.5317 13.9156 18.7236 13.7236C18.9156 13.5317 19.0234 13.2714 19.0234 13C19.0234 12.7286 18.9156 12.4683 18.7236 12.2764C18.5317 12.0844 18.2714 11.9766 18 11.9766H14.0234V8C14.0234 7.72857 13.9156 7.4683 13.7236 7.27637C13.5317 7.08444 13.2714 6.97656 13 6.97656Z" fill="#FFA52F" stroke="#FFA52F" strokeWidth="0.046875" />
               </svg>
@@ -244,26 +182,26 @@ export default function ReviewsAndFooter(): ReactElement {
         </div>
 
         {/* ── FOOTER — overlaps behind the blue card with big rounded top ── */}
-        <div className="rounded-[40px] bg-[#111111]" style={{ paddingTop: 34, position: "relative", zIndex: 100 }}>
-          <div style={{ padding: "0 40px" }}>
+        <div className="relative z-100 rounded-[40px] bg-[#111111] pt-8.5">
+          <div className="px-10">
             {/* Footer grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 32, marginBottom: 32 }}>
+            <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-8">
 
               {/* About us */}
-              <div style={{ gridColumn: "span 1" }}>
-                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 12px" }}>About us</div>
-                <p className="text-[20px] text-[#E7E7E3]" style={{ lineHeight: 1.65, margin: 0 }}>
+              <div>
+                <div className="mb-3 text-[24px] font-bold tracking-[0.5px] text-[#FFA52F]">About us</div>
+                <p className="m-0 text-[20px] leading-[1.65] text-[#E7E7E3]">
                   We are the biggest hyperstore in the universe. We got you all cover with our exclusive collections and latest drops.
                 </p>
               </div>
 
               {/* Categories */}
               <div>
-                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 8px" }}>Categories</div>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                <div className="mb-2 text-[24px] font-bold tracking-[0.5px] text-[#FFA52F]">Categories</div>
+                <ul className="m-0 list-none p-0">
                   {categoryLinks.map((item) => (
                     <li key={item}>
-                      <a href="#" className="fl text-[20px] text-[#E7E7E3]" style={{ textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
+                      <a href="#" className="text-[20px] text-[#E7E7E3] no-underline transition-colors duration-150 hover:text-blue-500">{item}</a>
                     </li>
                   ))}
                 </ul>
@@ -271,11 +209,11 @@ export default function ReviewsAndFooter(): ReactElement {
 
               {/* Company */}
               <div>
-                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 8px" }}>Company</div>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                <div className="mb-2 text-[24px] font-bold tracking-[0.5px] text-[#FFA52F]">Company</div>
+                <ul className="m-0 list-none p-0">
                   {companyLinks.map((item) => (
                     <li key={item}>
-                      <a href="#" className="fl text-[20px] text-[#E7E7E3]" style={{ textDecoration: "none", transition: "color 0.15s" }}>{item}</a>
+                      <a href="#" className="text-[20px] text-[#E7E7E3] no-underline transition-colors duration-150 hover:text-blue-500">{item}</a>
                     </li>
                   ))}
                 </ul>
@@ -283,8 +221,8 @@ export default function ReviewsAndFooter(): ReactElement {
 
               {/* Follow us */}
               <div>
-                <div className="text-[24px] text-[#FFA52F]" style={{ fontWeight: 700, letterSpacing: "0.5px", margin: "0 0 12px" }}>Follow us</div>
-                <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+                <div className="mb-3 text-[24px] font-bold tracking-[0.5px] text-[#FFA52F]">Follow us</div>
+                <div className="flex flex-wrap gap-6">
                   {/* Facebook */}
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20 10C20 4.48 15.52 0 10 0C4.48 0 0 4.48 0 10C0 14.84 3.44 18.87 8 19.8V13H6V10H8V7.5C8 5.57 9.57 4 11.5 4H14V7H12C11.45 7 11 7.45 11 8V10H14V13H11V19.95C16.05 19.45 20 15.19 20 10Z" fill="#E7E7E3" />
@@ -309,7 +247,7 @@ export default function ReviewsAndFooter(): ReactElement {
               </div>
             </div>
 
-            <div style={{ width: "100%", overflow: "hidden" }}>
+            <div className="w-full overflow-hidden">
               <svg
                 className="block w-full h-auto"
                 viewBox="0 0 1262 208"
@@ -317,18 +255,18 @@ export default function ReviewsAndFooter(): ReactElement {
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid meet"
               >
-              <g clipPath="url(#clip0_1_3353)">
-                <path d="M316.665 313.662C313.471 313.662 310.712 312.5 308.388 310.177C306.065 307.854 304.903 305.095 304.903 301.9V20.4752C304.903 17.2805 306.065 14.5214 308.388 12.198C310.712 9.8746 313.471 8.71289 316.665 8.71289H405.532C408.727 8.71289 411.486 9.8746 413.809 12.198C416.132 14.5214 417.294 17.2805 417.294 20.4752V301.9C417.294 305.095 416.132 307.854 413.809 310.177C411.486 312.5 408.727 313.662 405.532 313.662H316.665Z" fill="white" />
-                <path d="M11.7618 309.306C8.56725 309.306 5.80831 308.144 3.48498 305.821C1.16166 303.497 0 300.738 0 297.543V16.1188C0 12.9241 1.16166 10.165 3.48498 7.84158C5.80831 5.51816 8.56725 4.35645 11.7618 4.35645H94.9658C98.1604 4.35645 100.919 5.51816 103.243 7.84158C105.566 10.165 106.728 12.9241 106.728 16.1188V102.376L155.953 13.9406C157.405 11.6171 159.486 9.43893 162.294 7.40594C165.053 5.37294 168.731 4.35645 173.378 4.35645H269.651C272.264 4.35645 274.491 5.32454 276.427 7.16391C278.315 9.0517 279.234 11.2783 279.234 13.9406C279.234 15.6831 278.799 17.2805 277.927 18.7326L199.515 150.296L285.333 294.93C286.204 296.091 286.64 297.689 286.64 299.722C286.64 302.335 285.672 304.61 283.833 306.498C281.945 308.386 279.718 309.306 277.056 309.306H177.734C171.926 309.306 167.618 307.95 164.908 305.143C162.149 302.384 160.454 300.448 159.874 299.286L106.728 204.316V297.543C106.728 300.738 105.566 303.497 103.243 305.821C100.919 308.144 98.1604 309.306 94.9658 309.306H11.7618Z" fill="white" />
-                <path d="M579.96 313.662C552.08 313.662 527.394 309.596 505.904 301.464C484.413 293.332 467.327 280.553 454.694 263.128C442.061 245.702 435.139 223.194 434.026 195.603C433.735 183.696 433.59 170.917 433.59 157.267C433.59 143.617 433.735 130.547 434.026 118.059C435.187 91.0491 442.206 68.8314 455.129 51.4057C468.053 33.9801 485.333 21.056 506.968 12.6336C528.604 4.2112 552.951 0 579.96 0C598.546 0 616.455 2.1298 633.783 6.2926C651.063 10.5038 666.649 17.1352 680.588 26.1385C694.528 35.1418 705.613 46.7105 713.889 60.7478C722.166 74.8336 726.426 91.7752 726.764 111.524C726.764 114.138 725.797 116.413 723.957 118.301C722.07 120.189 719.843 121.108 717.181 121.108H628.314C623.667 121.108 620.23 120.189 618.052 118.301C615.874 116.413 613.938 113.17 612.196 108.475C609.001 99.1811 604.645 92.9369 599.127 89.7422C593.609 86.5475 587.075 84.9502 579.524 84.9502C569.94 84.9502 562.293 87.5156 556.63 92.5981C550.966 97.6806 547.82 106.926 547.239 120.237C546.368 144.052 546.368 168.448 547.239 193.425C547.82 206.785 550.966 216.03 556.63 221.064C562.293 226.147 569.94 228.712 579.524 228.712C587.075 228.712 593.657 226.969 599.321 223.484C604.984 219.999 609.243 213.9 612.196 205.187C613.648 200.25 615.535 196.91 617.859 195.168C620.182 193.425 623.667 192.554 628.314 192.554H717.181C719.795 192.554 722.021 193.522 723.957 195.361C725.845 197.249 726.764 199.476 726.764 202.138C726.474 221.887 722.215 238.829 713.889 252.914C705.613 267 694.528 278.569 680.588 287.524C666.649 296.527 651.015 303.158 633.783 307.321C616.455 311.532 598.546 313.662 579.96 313.662Z" fill="white" />
-                <path d="M984.121 294.93L898.303 150.296L976.715 18.7326C977.586 17.2805 978.022 15.6831 978.022 13.9406C978.022 11.3267 977.102 9.1001 975.215 7.21232C973.327 5.32454 971.052 4.35645 968.438 4.35645H872.166C867.519 4.35645 863.84 5.37294 861.081 7.40594C858.322 9.43893 856.193 11.6171 854.741 13.9406L811.178 92.2109L805.515 102.376V16.1188C805.515 12.9241 804.354 10.165 802.03 7.84158C799.707 5.51816 796.948 4.35645 793.754 4.35645H710.55C707.355 4.35645 704.596 5.51816 702.273 7.84158C701.982 8.18041 701.692 8.47084 701.401 8.80967C701.111 9.14851 700.869 9.48734 700.675 9.82617C700.433 10.165 700.24 10.5522 700.046 10.8911C699.853 11.2783 699.707 11.6171 699.562 12.0044C714.567 22.3146 726.861 35.3838 736.009 50.9701C745.932 67.9117 751.159 88.1933 751.498 111.234C751.498 119.221 748.497 126.481 743.028 132C737.51 137.469 730.249 140.47 722.553 140.47H698.788V173.192H722.553C730.249 173.192 737.51 176.193 742.979 181.663C748.497 187.229 751.498 194.49 751.498 202.138C751.159 225.469 745.932 245.75 736.009 262.692C726.861 278.278 714.567 291.348 699.562 301.658C699.707 302.045 699.853 302.432 700.046 302.771C700.433 303.497 700.869 304.223 701.401 304.852C701.692 305.191 701.982 305.482 702.273 305.821C704.596 308.144 707.355 309.306 710.55 309.306H793.754C796.948 309.306 799.707 308.144 802.03 305.821C804.354 303.497 805.515 300.738 805.515 297.543V204.316L811.178 214.433L858.661 299.286C859.242 300.448 860.936 302.432 863.695 305.191C866.454 307.95 870.714 309.306 876.522 309.306H975.844C978.458 309.306 980.733 308.386 982.62 306.498C984.508 304.61 985.428 302.335 985.428 299.722C985.428 297.689 984.992 296.091 984.121 294.93Z" fill="white" />
-                <path d="M1117.37 313.662C1085.14 313.662 1058.56 309.306 1037.65 300.593C1016.74 291.88 1001.06 280.408 990.607 266.177C980.152 251.946 974.634 236.844 974.053 220.87C974.053 218.257 974.973 216.03 976.86 214.094C978.748 212.206 980.975 211.286 983.588 211.286H1066.36C1071 211.286 1074.54 211.916 1077.05 213.222C1079.52 214.529 1082.18 216.369 1085.14 218.644C1088.04 220.677 1090.99 222.516 1094.04 224.065C1097.09 225.662 1100.58 226.824 1104.5 227.55C1108.42 228.276 1112.68 228.664 1117.37 228.664C1127.25 228.664 1135.14 227.55 1141.09 225.372C1147.04 223.194 1150.04 220.241 1150.04 216.466C1150.04 212.98 1148.35 210.076 1145.01 207.753C1141.67 205.429 1135.91 203.348 1127.78 201.46C1119.65 199.572 1108.32 197.733 1093.8 196.039C1070.86 192.844 1050.96 187.471 1034.12 179.92C1017.28 172.369 1004.26 162.01 995.156 148.747C986.008 135.533 981.459 119.317 981.459 100.149C981.459 80.4001 987.025 62.9745 998.206 47.8722C1009.39 32.77 1024.92 21.0076 1044.82 12.5852C1064.71 4.2112 1087.9 0 1114.32 0C1136.1 0 1155.42 2.80747 1172.26 8.47081C1189.11 14.1342 1203.34 21.5401 1214.95 30.6885C1226.57 39.837 1235.43 49.6632 1241.53 60.1186C1247.62 70.574 1250.82 80.5937 1251.11 90.1779C1251.11 92.7917 1250.14 95.0667 1248.3 96.9545C1246.41 98.8423 1244.28 99.762 1241.96 99.762H1154.84C1150.77 99.762 1147.48 99.1811 1145.06 98.0194C1142.59 96.8577 1140.03 95.1151 1137.41 92.7917C1135.96 91.3396 1133.25 89.6938 1129.33 87.7576C1125.41 85.8698 1120.42 84.9502 1114.28 84.9502C1107.01 84.9502 1101.69 86.0635 1098.4 88.2417C1095.06 90.4199 1093.37 93.421 1093.37 97.1481C1093.37 99.762 1094.67 102.231 1097.29 104.554C1099.9 106.877 1104.69 108.91 1111.66 110.653C1118.63 112.396 1128.65 114.138 1141.72 115.881C1170.76 119.366 1194.04 124.981 1211.66 132.629C1229.23 140.325 1242.01 150.587 1250 163.366C1257.98 176.145 1262 191.973 1262 210.851C1262 232.052 1255.66 250.349 1243.03 265.742C1230.39 281.134 1213.16 292.945 1191.38 301.222C1169.6 309.499 1144.96 313.662 1117.37 313.662Z" fill="white" />
-              </g>
-              <defs>
-                <clipPath id="clip0_1_3353">
-                  <rect width="1262" height="313.662" fill="white" />
-                </clipPath>
-              </defs>
+                <g clipPath="url(#clip0_1_3353)">
+                  <path d="M316.665 313.662C313.471 313.662 310.712 312.5 308.388 310.177C306.065 307.854 304.903 305.095 304.903 301.9V20.4752C304.903 17.2805 306.065 14.5214 308.388 12.198C310.712 9.8746 313.471 8.71289 316.665 8.71289H405.532C408.727 8.71289 411.486 9.8746 413.809 12.198C416.132 14.5214 417.294 17.2805 417.294 20.4752V301.9C417.294 305.095 416.132 307.854 413.809 310.177C411.486 312.5 408.727 313.662 405.532 313.662H316.665Z" fill="white" />
+                  <path d="M11.7618 309.306C8.56725 309.306 5.80831 308.144 3.48498 305.821C1.16166 303.497 0 300.738 0 297.543V16.1188C0 12.9241 1.16166 10.165 3.48498 7.84158C5.80831 5.51816 8.56725 4.35645 11.7618 4.35645H94.9658C98.1604 4.35645 100.919 5.51816 103.243 7.84158C105.566 10.165 106.728 12.9241 106.728 16.1188V102.376L155.953 13.9406C157.405 11.6171 159.486 9.43893 162.294 7.40594C165.053 5.37294 168.731 4.35645 173.378 4.35645H269.651C272.264 4.35645 274.491 5.32454 276.427 7.16391C278.315 9.0517 279.234 11.2783 279.234 13.9406C279.234 15.6831 278.799 17.2805 277.927 18.7326L199.515 150.296L285.333 294.93C286.204 296.091 286.64 297.689 286.64 299.722C286.64 302.335 285.672 304.61 283.833 306.498C281.945 308.386 279.718 309.306 277.056 309.306H177.734C171.926 309.306 167.618 307.95 164.908 305.143C162.149 302.384 160.454 300.448 159.874 299.286L106.728 204.316V297.543C106.728 300.738 105.566 303.497 103.243 305.821C100.919 308.144 98.1604 309.306 94.9658 309.306H11.7618Z" fill="white" />
+                  <path d="M579.96 313.662C552.08 313.662 527.394 309.596 505.904 301.464C484.413 293.332 467.327 280.553 454.694 263.128C442.061 245.702 435.139 223.194 434.026 195.603C433.735 183.696 433.59 170.917 433.59 157.267C433.59 143.617 433.735 130.547 434.026 118.059C435.187 91.0491 442.206 68.8314 455.129 51.4057C468.053 33.9801 485.333 21.056 506.968 12.6336C528.604 4.2112 552.951 0 579.96 0C598.546 0 616.455 2.1298 633.783 6.2926C651.063 10.5038 666.649 17.1352 680.588 26.1385C694.528 35.1418 705.613 46.7105 713.889 60.7478C722.166 74.8336 726.426 91.7752 726.764 111.524C726.764 114.138 725.797 116.413 723.957 118.301C722.07 120.189 719.843 121.108 717.181 121.108H628.314C623.667 121.108 620.23 120.189 618.052 118.301C615.874 116.413 613.938 113.17 612.196 108.475C609.001 99.1811 604.645 92.9369 599.127 89.7422C593.609 86.5475 587.075 84.9502 579.524 84.9502C569.94 84.9502 562.293 87.5156 556.63 92.5981C550.966 97.6806 547.82 106.926 547.239 120.237C546.368 144.052 546.368 168.448 547.239 193.425C547.82 206.785 550.966 216.03 556.63 221.064C562.293 226.147 569.94 228.712 579.524 228.712C587.075 228.712 593.657 226.969 599.321 223.484C604.984 219.999 609.243 213.9 612.196 205.187C613.648 200.25 615.535 196.91 617.859 195.168C620.182 193.425 623.667 192.554 628.314 192.554H717.181C719.795 192.554 722.021 193.522 723.957 195.361C725.845 197.249 726.764 199.476 726.764 202.138C726.474 221.887 722.215 238.829 713.889 252.914C705.613 267 694.528 278.569 680.588 287.524C666.649 296.527 651.015 303.158 633.783 307.321C616.455 311.532 598.546 313.662 579.96 313.662Z" fill="white" />
+                  <path d="M984.121 294.93L898.303 150.296L976.715 18.7326C977.586 17.2805 978.022 15.6831 978.022 13.9406C978.022 11.3267 977.102 9.1001 975.215 7.21232C973.327 5.32454 971.052 4.35645 968.438 4.35645H872.166C867.519 4.35645 863.84 5.37294 861.081 7.40594C858.322 9.43893 856.193 11.6171 854.741 13.9406L811.178 92.2109L805.515 102.376V16.1188C805.515 12.9241 804.354 10.165 802.03 7.84158C799.707 5.51816 796.948 4.35645 793.754 4.35645H710.55C707.355 4.35645 704.596 5.51816 702.273 7.84158C701.982 8.18041 701.692 8.47084 701.401 8.80967C701.111 9.14851 700.869 9.48734 700.675 9.82617C700.433 10.165 700.24 10.5522 700.046 10.8911C699.853 11.2783 699.707 11.6171 699.562 12.0044C714.567 22.3146 726.861 35.3838 736.009 50.9701C745.932 67.9117 751.159 88.1933 751.498 111.234C751.498 119.221 748.497 126.481 743.028 132C737.51 137.469 730.249 140.47 722.553 140.47H698.788V173.192H722.553C730.249 173.192 737.51 176.193 742.979 181.663C748.497 187.229 751.498 194.49 751.498 202.138C751.159 225.469 745.932 245.75 736.009 262.692C726.861 278.278 714.567 291.348 699.562 301.658C699.707 302.045 699.853 302.432 700.046 302.771C700.433 303.497 700.869 304.223 701.401 304.852C701.692 305.191 701.982 305.482 702.273 305.821C704.596 308.144 707.355 309.306 710.55 309.306H793.754C796.948 309.306 799.707 308.144 802.03 305.821C804.354 303.497 805.515 300.738 805.515 297.543V204.316L811.178 214.433L858.661 299.286C859.242 300.448 860.936 302.432 863.695 305.191C866.454 307.95 870.714 309.306 876.522 309.306H975.844C978.458 309.306 980.733 308.386 982.62 306.498C984.508 304.61 985.428 302.335 985.428 299.722C985.428 297.689 984.992 296.091 984.121 294.93Z" fill="white" />
+                  <path d="M1117.37 313.662C1085.14 313.662 1058.56 309.306 1037.65 300.593C1016.74 291.88 1001.06 280.408 990.607 266.177C980.152 251.946 974.634 236.844 974.053 220.87C974.053 218.257 974.973 216.03 976.86 214.094C978.748 212.206 980.975 211.286 983.588 211.286H1066.36C1071 211.286 1074.54 211.916 1077.05 213.222C1079.52 214.529 1082.18 216.369 1085.14 218.644C1088.04 220.677 1090.99 222.516 1094.04 224.065C1097.09 225.662 1100.58 226.824 1104.5 227.55C1108.42 228.276 1112.68 228.664 1117.37 228.664C1127.25 228.664 1135.14 227.55 1141.09 225.372C1147.04 223.194 1150.04 220.241 1150.04 216.466C1150.04 212.98 1148.35 210.076 1145.01 207.753C1141.67 205.429 1135.91 203.348 1127.78 201.46C1119.65 199.572 1108.32 197.733 1093.8 196.039C1070.86 192.844 1050.96 187.471 1034.12 179.92C1017.28 172.369 1004.26 162.01 995.156 148.747C986.008 135.533 981.459 119.317 981.459 100.149C981.459 80.4001 987.025 62.9745 998.206 47.8722C1009.39 32.77 1024.92 21.0076 1044.82 12.5852C1064.71 4.2112 1087.9 0 1114.32 0C1136.1 0 1155.42 2.80747 1172.26 8.47081C1189.11 14.1342 1203.34 21.5401 1214.95 30.6885C1226.57 39.837 1235.43 49.6632 1241.53 60.1186C1247.62 70.574 1250.82 80.5937 1251.11 90.1779C1251.11 92.7917 1250.14 95.0667 1248.3 96.9545C1246.41 98.8423 1244.28 99.762 1241.96 99.762H1154.84C1150.77 99.762 1147.48 99.1811 1145.06 98.0194C1142.59 96.8577 1140.03 95.1151 1137.41 92.7917C1135.96 91.3396 1133.25 89.6938 1129.33 87.7576C1125.41 85.8698 1120.42 84.9502 1114.28 84.9502C1107.01 84.9502 1101.69 86.0635 1098.4 88.2417C1095.06 90.4199 1093.37 93.421 1093.37 97.1481C1093.37 99.762 1094.67 102.231 1097.29 104.554C1099.9 106.877 1104.69 108.91 1111.66 110.653C1118.63 112.396 1128.65 114.138 1141.72 115.881C1170.76 119.366 1194.04 124.981 1211.66 132.629C1229.23 140.325 1242.01 150.587 1250 163.366C1257.98 176.145 1262 191.973 1262 210.851C1262 232.052 1255.66 250.349 1243.03 265.742C1230.39 281.134 1213.16 292.945 1191.38 301.222C1169.6 309.499 1144.96 313.662 1117.37 313.662Z" fill="white" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1_3353">
+                    <rect width="1262" height="313.662" fill="white" />
+                  </clipPath>
+                </defs>
               </svg>
             </div>
           </div>
