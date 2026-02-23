@@ -128,7 +128,7 @@ function CategoryCard({ cat, svgIndex }: CategoryCardProps): ReactElement {
   return (
     <div
       className={[
-        "relative overflow-hidden cursor-pointer mx-2.5 rounded-xl bg-white",
+        "relative overflow-hidden cursor-pointer rounded-xl bg-white",
         "transition-[transform,box-shadow] duration-[220ms] ease-in-out",
       ].join(" ")}
 
@@ -228,15 +228,15 @@ export default function CategoriesSlider(): ReactElement {
 
       {/* Dark band */}
       <div className="bg-[#1a1a1a]">
-        <div className="max-w-screen-xl mx-auto pt-18 px-6">
+        <div className="pt-18 md:pl-18">
           {/* white rounded panel to match design */}
           <div className="">
 
             {/* ── Header ── */}
-            <div className="flex items-center justify-between pb-4">
+            <div className="flex items-center justify-between pb-4 max-w-screen-xl">
               {/* Title */}
               <div className="flex items-center gap-3">
-                <h2 className="text-[#111] font-black text-[clamp(22px,5vw,34px)] tracking-tight leading-none">
+                <h2 className="text-[#FFFFFF] font-black text-[clamp(22px,5vw,34px)] tracking-tight leading-none">
                   CATEGORIES
                 </h2>
               </div>
@@ -267,7 +267,7 @@ export default function CategoriesSlider(): ReactElement {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-4 cat-fade">
+              <div className="grid grid-cols-2 cat-fade">
                 {shown.map((cat, i) => (
                   <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
                 ))}
