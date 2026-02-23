@@ -1,4 +1,5 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, ReactElement } from "react";
+import { useGetCategoriesQuery } from "@/lib/api/productApi";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Category {
@@ -192,26 +193,10 @@ function NavBtn({ fn, icon, disabled }: NavButtonProps): ReactElement {
 
 // ── Main Component ────────────────────────────────────────────────────────
 export default function CategoriesSlider(): ReactElement {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: categories = [], isLoading: loading, isError, error, refetch } = useGetCategoriesQuery();
   const [current, setCurrent] = useState<number>(0);
 
   const visible = 2;
-
-  const load = (): void => {
-    setLoading(true);
-    setError(null);
-    fetch("https://api.escuelajs.co/api/v1/categories")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<Category[]>;
-      })
-      .then((data) => { setCategories(data); setLoading(false); })
-      .catch((err: Error) => { setError(err.message); setLoading(false); });
-  };
-
-  useEffect(() => { load(); }, []);
 
   const max: number = Math.max(0, categories.length - visible);
   const prev = (): void => setCurrent((c) => Math.max(0, c - 1));
@@ -249,12 +234,12 @@ export default function CategoriesSlider(): ReactElement {
             </div>
 
             {/* ── Cards ── */}
-            {error ? (
+            {isError ? (
               <div className="flex flex-col items-center justify-center py-14 text-center px-6">
                 <p className="font-black text-[#111] text-base mb-1">Failed to load categories</p>
-                <p className="text-gray-500 text-xs mb-4">{error}</p>
+                <p className="text-gray-500 text-xs mb-4">{typeof error === 'string' ? error : 'Unable to fetch categories'}</p>
                 <button
-                  onClick={load}
+                  onClick={() => refetch()}
                   className="bg-[#4A69E2] text-white border-none rounded-[10px] px-6 py-2.5 font-bold text-xs tracking-[1px] cursor-pointer hover:bg-[#3a59d2] transition-colors"
                 >
                   RETRY

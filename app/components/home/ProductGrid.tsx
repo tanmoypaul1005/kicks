@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useGetProductsQuery } from "@/lib/api/productApi";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Category {
@@ -149,30 +150,14 @@ function ProductCard({ product, index }: ProductCardProps) {
 
 // ── Product Grid (default export) ─────────────────────────────────────────
 export default function ProductGrid() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selected, setSelected] = useState<Product | null>(null);
   const [page, setPage] = useState<number>(1);
   const limit = 8;
+  const offset = (page - 1) * limit;
 
-  useEffect(() => {
-    setLoading(true);
-    const offset = (page - 1) * limit;
-    fetch(`https://api.escuelajs.co/api/v1/products?limit=${limit}&offset=${offset}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json() as Promise<Product[]>;
-      })
-      .then((data) => {
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err: Error) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, [page]);
+  const { data: products = [], isLoading: loading, isError, error } = useGetProductsQuery({
+    limit,
+    offset,
+  });
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -205,10 +190,12 @@ export default function ProductGrid() {
               </div>
             ))}
           </div>
-        ) : error ? (
+        ) : isError ? (
           /* Error */
           <div className="flex flex-col items-center justify-center py-20">
-            <p style={{ color: "#ef4444", fontWeight: 700 }}>Error: {error}</p>
+            <p style={{ color: "#ef4444", fontWeight: 700 }}>
+              Error: {error ? (typeof error === 'string' ? error : 'Failed to fetch products') : 'Failed to fetch products'}
+            </p>
             <button
               onClick={() => setPage(1)}
               className="mt-4 px-4 py-2 rounded-lg text-white"

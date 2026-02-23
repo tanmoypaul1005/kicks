@@ -1,7 +1,8 @@
 "use client";
-import { useState, useEffect, ReactElement } from "react";
+import { useState, ReactElement } from "react";
 import { useCart } from '../../context/CartProvider';
 import { useParams } from "next/navigation";
+import { useGetProductByIdQuery } from "@/lib/api/productApi";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Category {
@@ -200,11 +201,10 @@ function Skeleton({ className = "" }: SkeletonProps): ReactElement {
 // ── Main Component ────────────────────────────────────────────────────────
 export default function ProductPage({ product_id }: ProductPageProps): ReactElement {
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const params = useParams() as { product_id?: string };
   const pid = Number(params?.product_id ?? product_id ?? 3);
+
+  const { data: product, isLoading: loading, isError, error } = useGetProductByIdQuery(pid);
 
   const [selectedColor, setSelectedColor] = useState<ColorwayKey>("black");
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -216,19 +216,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
   const [sizeError, setSizeError] = useState<boolean>(false);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
   const { addItem } = useCart();
-
-  // ── Fetch product ──
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetch(`https://api.escuelajs.co/api/v1/products/${pid}`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<Product>;
-      })
-      .then((data) => { setProduct(data); setLoading(false); })
-      .catch((err: Error) => { setError(err.message); setLoading(false); });
-  }, [pid]);
 
   const handleAddToCart = (): void => {
     if (!selectedSize) { setSizeError(true); return; }
@@ -293,14 +280,14 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
   }
 
   // ── Error state ──
-  if (error) {
+  if (isError) {
     return (
       <div className="min-h-screen bg-[#f4f4f0] flex items-center justify-center">
         <div className="text-center p-8">
           <p className="text-2xl font-black text-gray-900 mb-2" >
             Failed to load product
           </p>
-          <p className="text-gray-500 text-sm mb-4">{error}</p>
+          <p className="text-gray-500 text-sm mb-4">{typeof error === 'string' ? error : 'Unable to fetch product details'}</p>
           <button
             onClick={() => window.location.reload()}
             className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm tracking-[1px]"

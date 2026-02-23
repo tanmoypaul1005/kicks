@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/header";
 import CartProvider from "./context/CartProvider";
 import ReviewsAndFooter from "./Footer";
+import { Providers } from "./providers";
 
 
 const rubik = Rubik({
@@ -26,14 +27,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${rubik.className} antialiased`}>
-        <CartProvider>
-          <div className="">
-            <div className="mt-8">
-              <Header />
+        <Providers>
+          <CartProvider>
+            <div className="">
+              <div className="mt-8">
+                <Header />
+              </div>
+              {children}
             </div>
-            {children}
-          </div>
-        </CartProvider>
+          </CartProvider>
+        </Providers>
         <ReviewsAndFooter />
         <div className="text-black text-center mt-[28px] mb-[18px]">© All rights reserved </div>
       </body>
