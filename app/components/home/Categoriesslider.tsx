@@ -193,6 +193,7 @@ function NavBtn({ fn, icon, disabled }: NavButtonProps): ReactElement {
 
 // ── Main Component ────────────────────────────────────────────────────────
 export default function CategoriesSlider(): ReactElement {
+
   const { data: categories = [], isLoading: loading, isError, error, refetch } = useGetCategoriesQuery();
   const [current, setCurrent] = useState<number>(0);
 
@@ -213,7 +214,7 @@ export default function CategoriesSlider(): ReactElement {
 
       {/* Dark band */}
       <div className="bg-[#1a1a1a]">
-        <div className="pt-18 md:pl-18">
+        <div className="md:pt-18 pt-8 md:pl-18">
           {/* white rounded panel to match design */}
           <div className="">
 
@@ -252,7 +253,7 @@ export default function CategoriesSlider(): ReactElement {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 cat-fade">
+              <div className="grid grid-cols-1 md:grid-cols-2 cat-fade pb-8 md:pb-0 px-5 md:px-0">
                 {shown.map((cat, i) => (
                   <CategoryCard key={cat.id} cat={cat} svgIndex={current + i} />
                 ))}
