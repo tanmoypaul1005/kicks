@@ -510,7 +510,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
             {/* Quantity + Cart */}
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
-              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white">
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white w-fit">
                 <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 font-bold">−</button>
                 <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-12 text-center">{quantity}</span>
                 <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors duration-150 font-bold">+</button>

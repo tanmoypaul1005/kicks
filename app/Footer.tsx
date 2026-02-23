@@ -114,13 +114,13 @@ export default function ReviewsAndFooter(): ReactElement {
   };
 
   return (
-    <div className="bg-[#f4f4f0] box-border">
+    <div className="">
 
       {/* ── NEWSLETTER + FOOTER stacked container ── */}
       <div className="mx-auto max-w-7xl px-6">
 
         {/* Blue newsletter card — fully rounded on all sides */}
-        <div className="relative z-2 -mb-8 flex flex-wrap items-center justify-between gap-8 rounded-tl-4xl rounded-tr-4xl bg-[#4A6CF7] px-14 pt-10 pb-18">
+        <div className="relative z-2 -mb-8 flex flex-wrap items-center justify-between gap-8 rounded-tl-4xl rounded-tr-4xl bg-[#4A6CF7] px-8 md:px-14 pt-10 pb-18">
           {/* Left */}
           <div className="min-w-60 flex-1">
             <h2 className="mb-2 font-['Barlow_Condensed'] text-[clamp(22px,4vw,34px)] font-black uppercase leading-[1.05] text-white">
