@@ -69,9 +69,9 @@ const Header = () => {
                     </div>
 
                     {/* ── CENTER LOGO — absolute centered on all screens ── */}
-                    <div className="absolute left-1/2 -translate-x-1/2">
+                    <Link href={"/"} className="absolute left-1/2 -translate-x-1/2">
                         <KicksLogo />
-                    </div>
+                    </Link>
 
                     {/* ── RIGHT ── */}
                     <div className="flex items-center gap-3 md:gap-10">
