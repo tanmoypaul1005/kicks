@@ -16,11 +16,6 @@ interface RelatedProduct {
   idx: number;
 }
 
-interface TrustBadge {
-  icon: string;
-  txt: string;
-}
-
 interface ProductThumbShoeProps {
   idx: number;
 }
@@ -99,20 +94,20 @@ function Stars({ fill = 4 }: StarsProps): ReactElement {
 
 // ── Main Component ────────────────────────────────────────────────────────
 export default function CartPage(): ReactElement {
-  const [quantity, setQuantity]       = useState<number>(1);
-  const [size, setSize]               = useState<string>("10");
-  const [wishlist, setWishlist]       = useState<boolean>(false);
-  const [promo, setPromo]             = useState<string>("");
-  const [promoOpen, setPromoOpen]     = useState<boolean>(false);
+  const [quantity, setQuantity]         = useState<number>(1);
+  const [size, setSize]                 = useState<string>("10");
+  const [wishlist, setWishlist]         = useState<boolean>(false);
+  const [promo, setPromo]               = useState<string>("");
+  const [promoOpen, setPromoOpen]       = useState<boolean>(false);
   const [promoApplied, setPromoApplied] = useState<boolean>(false);
-  const [removed, setRemoved]         = useState<boolean>(false);
+  const [removed, setRemoved]           = useState<boolean>(false);
   const [checkoutDone, setCheckoutDone] = useState<boolean>(false);
   const { items, removeItem, updateQty } = useCart();
 
-  const delivery: number   = 6.99;
-  const subtotal: number = items.reduce((s, it) => s + it.price * it.qty, 0);
-  const discount: number   = promoApplied ? 13 : 0;
-  const itemTotal: number  = subtotal - discount;
+  const delivery: number  = 6.99;
+  const subtotal: number  = items.reduce((s, it) => s + it.price * it.qty, 0);
+  const discount: number  = promoApplied ? 13 : 0;
+  const itemTotal: number = subtotal - discount;
 
   const handleCheckout = (): void => {
     setCheckoutDone(true);
@@ -139,34 +134,23 @@ export default function CartPage(): ReactElement {
     <div className="min-h-screen bg-[#f4f4f0]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
-        * { font-family:'Barlow',sans-serif; box-sizing:border-box; }
-        .fd { font-family:'Barlow Condensed',sans-serif; }
-        .section-title  { font-weight:900; font-size:clamp(18px,4vw,28px); }
-        .product-name   { font-weight:700; font-size:15px; letter-spacing:0.2px; }
-        .price-large    { font-weight:900; font-size:clamp(20px,4vw,28px); }
-        .label-sm       { font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; }
-        .checkout-btn   { font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; }
-        .view-btn       { font-weight:700; font-size:11px; letter-spacing:1.2px; text-transform:uppercase; }
-        .promo-link     { font-size:13px; }
-        @keyframes fadeUp  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes slideIn { from{opacity:0;max-height:0} to{opacity:1;max-height:80px} }
-        .fade-up  { animation:fadeUp .4s ease both; }
-        .slide-in { animation:slideIn .3s ease both; overflow:hidden; }
-        .product-card { transition:transform 0.2s ease,box-shadow 0.2s ease; }
-        .product-card:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,0.1); }
-        select { appearance:none; -webkit-appearance:none; cursor:pointer; }
-        .select-wrap { position:relative; display:inline-flex; align-items:center; }
-        .select-wrap::after { content:'▾'; position:absolute; right:8px; font-size:10px; color:#6b7280; pointer-events:none; font-family:'Barlow Condensed',sans-serif; }
+        * { box-sizing: border-box; }
+        @keyframes fadeUp  { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 80px; } }
+        .fade-up  { animation: fadeUp .4s ease both; }
+        .slide-in { animation: slideIn .3s ease both; overflow: hidden; }
+        .product-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        select { appearance: none; -webkit-appearance: none; cursor: pointer; }
+        .select-wrap { position: relative; display: inline-flex; align-items: center; }
+        .select-wrap::after { content: '▾'; position: absolute; right: 8px; font-size: 10px; color: #6b7280; pointer-events: none; font-family: 'Barlow Condensed', sans-serif; }
       `}</style>
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-5 sm:py-8">
 
         {/* ── PROMO BANNER ── */}
         <div className="mb-6 fade-up">
-          <h2
-            className="fd font-black text-gray-900 text-2xl sm:text-3xl mb-1"
-            style={{ fontWeight: 900 }}
-          >
+          <h2 className="fd font-black text-gray-900 text-2xl sm:text-3xl mb-1 leading-none tracking-tight">
             Saving to celebrate
           </h2>
           <p className="text-gray-500 text-sm">
@@ -184,37 +168,46 @@ export default function CartPage(): ReactElement {
 
           {/* LEFT — Your Bag */}
           <div className="lg:col-span-2 fade-up">
-            <div className="bg-white rounded-2xl overflow-hidden" style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.07)" }}>
+            <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.07)]">
               {/* Bag header */}
               <div className="px-5 sm:px-6 pt-5 pb-3 border-b border-gray-100">
-                <h3 className="section-title text-gray-900">Your Bag</h3>
+                <h3 className="fd font-black text-gray-900 text-[clamp(18px,4vw,28px)] leading-tight">Your Bag</h3>
                 <p className="text-gray-400 text-xs mt-0.5">Items in your bag not reserved — check out now to make them yours.</p>
               </div>
 
-              {/* Cart Item or Empty State */}
+              {/* Cart Items or Empty State */}
               {items.length > 0 ? (
-                <div className="p-4 sm:p-6 space-y-4">
+                <div className="px-3 space-y-4">
                   {items.map((it) => (
                     <div key={it.id} className="flex gap-4 sm:gap-6 items-start bg-white rounded-xl p-3">
-                      <div className="w-28 sm:w-36 flex-shrink-0 rounded-xl overflow-hidden bg-blue-50" style={{ minHeight: "90px" }}>
+                      <div className="w-28 sm:w-36 flex-shrink-0 rounded-xl overflow-hidden bg-blue-50 min-h-[90px]">
                         <div className="w-full h-full flex items-center justify-center">
-                          {it.image ? <img src={it.image} alt={it.title} className="w-full h-full object-contain" /> : <CartShoe />}
+                          {it.image
+                            ? <img src={it.image} alt={it.title} className="w-full h-full object-contain" />
+                            : <CartShoe />
+                          }
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <p className="product-name text-gray-900 leading-tight">{it.title}</p>
-                            <p className="text-gray-500 text-xs mt-1">{it.size ? `Size ${it.size}` : "One size"}</p>
+                            <p className="fd font-bold text-gray-900 text-[15px] leading-tight tracking-[0.2px]">
+                              {it.title}
+                            </p>
+                            <p className="text-gray-500 text-xs mt-1">
+                              {it.size ? `Size ${it.size}` : "One size"}
+                            </p>
                           </div>
-                          <span className="price-large text-blue-600 flex-shrink-0">${(it.price * it.qty).toFixed(2)}</span>
+                          <span className="fd font-black text-blue-600 text-[clamp(20px,4vw,28px)] flex-shrink-0">
+                            ${(it.price * it.qty).toFixed(2)}
+                          </span>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3 mt-3">
                           <div className="select-wrap">
                             <select
                               value={String(it.size ?? "")}
-                              onChange={(e) => { /* no-op: size not editable here */ }}
+                              onChange={() => {}}
                               className="fd font-bold text-gray-700 text-xs bg-gray-50 border border-gray-200 rounded-lg pl-3 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                             >
                               <option>{it.size ? `Size ${it.size}` : "Size"}</option>
@@ -235,13 +228,25 @@ export default function CartPage(): ReactElement {
                         </div>
 
                         <div className="flex items-center gap-4 mt-3">
-                          <button onClick={() => setWishlist(!wishlist)} className="flex items-center gap-1.5 hover:text-blue-600 transition-colors">
-                            <svg className={`w-4 h-4 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none">
+                          <button
+                            onClick={() => setWishlist(!wishlist)}
+                            className="flex items-center gap-1.5 hover:text-blue-600 transition-colors"
+                          >
+                            <svg
+                              className={`w-4 h-4 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`}
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              fill="none"
+                            >
                               <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
                           </button>
 
-                          <button onClick={() => removeItem(it.id)} className="text-gray-400 hover:text-red-500 transition-colors">
+                          <button
+                            onClick={() => removeItem(it.id)}
+                            className="text-gray-400 hover:text-red-500 transition-colors"
+                          >
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
@@ -259,58 +264,58 @@ export default function CartPage(): ReactElement {
                   </svg>
                   <p className="fd font-bold text-gray-400 text-lg mb-1">Your bag is empty</p>
                   <p className="text-gray-400 text-sm mb-4">Looks like you haven't added anything yet.</p>
-                  <button onClick={() => {}} className="checkout-btn bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors text-sm">CONTINUE SHOPPING</button>
+                  <button
+                    onClick={() => {}}
+                    className="fd font-bold uppercase tracking-[2px] text-sm bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
+                  >
+                    CONTINUE SHOPPING
+                  </button>
                 </div>
               )}
             </div>
           </div>
 
           {/* RIGHT — Order Summary */}
-          <div className="fade-up" style={{ animationDelay: ".1s" }}>
-            <div
-              className="bg-white rounded-2xl overflow-hidden sticky top-16"
-              style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.07)" }}
-            >
-              <div className="px-5 sm:px-6 pt-5 pb-3 border-b border-gray-100">
-                <h3 className="section-title text-gray-900">Order Summary</h3>
+          <div className="fade-up [animation-delay:0.1s]">
+            <div className="rounded-2xl overflow-hidden sticky top-16">
+              <div className=" border-b border-gray-100">
+                <h3 className="fd font-black text-gray-900 text-[clamp(18px,4vw,28px)] leading-tight">Order Summary</h3>
               </div>
 
-              <div className="p-5 sm:p-6 space-y-4">
+              <div className="space-y-4 pt-5">
                 {/* Line items */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="label-sm text-gray-500">{items.length === 0 ? "0 ITEMS" : `${items.reduce((s, it) => s + it.qty, 0)} ITEM(s)`}</span>
-                    <span className="fd font-bold text-gray-900">${items.length === 0 ? "0.00" : subtotal.toFixed(2)}</span>
+                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">
+                      {items.length === 0 ? "0 ITEMS" : `${items.reduce((s, it) => s + it.qty, 0)} ITEM(s)`}
+                    </span>
+                    <span className="fd font-bold text-gray-900">
+                      ${items.length === 0 ? "0.00" : subtotal.toFixed(2)}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="label-sm text-gray-500">Delivery</span>
-                    <span className="fd font-bold text-gray-900">{items.length === 0 ? "—" : `$${delivery.toFixed(2)}`}</span>
+                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">Delivery</span>
+                    <span className="fd font-bold text-gray-900">
+                      {items.length === 0 ? "—" : `$${delivery.toFixed(2)}`}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="label-sm text-gray-500">Sales Tax</span>
+                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">Sales Tax</span>
                     <span className="fd font-bold text-gray-400">—</span>
                   </div>
                   {promoApplied && items.length > 0 && (
                     <div className="flex justify-between items-center text-green-600 slide-in">
-                      <span className="label-sm">Promo (KICKS10)</span>
+                      <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase">Promo (KICKS10)</span>
                       <span className="fd font-bold">-$13.00</span>
                     </div>
                   )}
                 </div>
 
                 {/* Divider + Total */}
-                <div className="border-t border-gray-100 pt-3">
+                <div className="border-t border-gray-100">
                   <div className="flex justify-between items-center">
-                    <span
-                      className="fd font-black text-gray-900 text-lg"
-                      style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900 }}
-                    >
-                      Total
-                    </span>
-                    <span
-                      className="fd font-black text-gray-900 text-xl"
-                      style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900 }}
-                    >
+                    <span className="fd font-black text-gray-900 text-lg leading-none">Total</span>
+                    <span className="fd font-black text-gray-900 text-xl leading-none">
                       {removed ? "$0.00" : `$${(itemTotal + delivery).toFixed(2)}`}
                     </span>
                   </div>
@@ -320,7 +325,7 @@ export default function CartPage(): ReactElement {
                 <button
                   onClick={handleCheckout}
                   disabled={removed}
-                  className={`checkout-btn w-full py-3.5 rounded-xl transition-all text-sm ${
+                  className={`fd font-bold text-sm tracking-[2px] uppercase w-full py-3.5 rounded-xl transition-all ${
                     removed
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                       : checkoutDone
@@ -335,7 +340,7 @@ export default function CartPage(): ReactElement {
                 <div>
                   <button
                     onClick={() => setPromoOpen(!promoOpen)}
-                    className="promo-link text-blue-600 hover:underline text-sm w-full text-left"
+                    className="text-blue-600 hover:underline text-sm w-full text-left"
                   >
                     {promoApplied ? "✓ Promo code applied" : "Use a promo code"}
                   </button>
@@ -347,12 +352,11 @@ export default function CartPage(): ReactElement {
                         value={promo}
                         onChange={handlePromoChange}
                         placeholder="Enter code"
-                        className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        style={{ fontFamily: "'Barlow',sans-serif" }}
+                        className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 font-[Barlow,sans-serif]"
                       />
                       <button
                         onClick={handleApplyPromo}
-                        className="checkout-btn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs"
+                        className="fd font-bold text-xs tracking-[2px] uppercase px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                       >
                         APPLY
                       </button>
@@ -367,30 +371,16 @@ export default function CartPage(): ReactElement {
         {/* ── YOU MAY ALSO LIKE ── */}
         <div className="mt-12 sm:mt-16 pb-10">
           <div className="flex items-center justify-between mb-5">
-            <h2
-              className="fd font-black text-gray-900"
-              style={{
-                fontFamily: "'Barlow Condensed',sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(22px,5vw,34px)",
-                lineHeight: 1,
-              }}
-            >
+            <h2 className="fd font-black text-gray-900 text-[clamp(22px,5vw,34px)] leading-none">
               You may also like
             </h2>
             <div className="flex items-center gap-2">
-              <div
-                className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center"
-                style={{ boxShadow: "0 2px 8px #0001" }}
-              >
+              <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
                 <svg viewBox="0 0 32 32" className="w-6 h-6" fill="#1f2937">
                   <path d="M16 4L4 24h8l4-7 4 7h8L16 4z" />
                 </svg>
               </div>
-              <button
-                className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center hover:bg-blue-600 transition-colors"
-                style={{ boxShadow: "0 2px 8px #0002" }}
-              >
+              <button className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center hover:bg-blue-600 transition-colors shadow-[0_2px_8px_rgba(0,0,0,0.12)]">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -403,31 +393,24 @@ export default function CartPage(): ReactElement {
             {related.map((p, i) => (
               <div
                 key={i}
-                className="product-card bg-white rounded-2xl overflow-hidden cursor-pointer"
-                style={{ boxShadow: "0 2px 10px rgba(0,0,0,0.06)" }}
+                className="product-card bg-white rounded-2xl overflow-hidden cursor-pointer shadow-[0_2px_10px_rgba(0,0,0,0.06)]"
               >
                 <div className="relative p-3 pb-2">
-                  <span className="absolute top-2.5 left-2.5 z-10 fd font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-widest uppercase">
+                  <span className="absolute top-2.5 left-2.5 z-10 fd font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-[0.1em] uppercase">
                     {p.badge}
                   </span>
-                  <div className="w-full rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                  <div className="w-full rounded-xl overflow-hidden aspect-[4/3]">
                     <ProductThumbShoe idx={i} />
                   </div>
                 </div>
                 <div className="px-3 pb-3">
-                  <p
-                    className="fd font-bold text-gray-900 text-xs leading-tight mb-1.5"
-                    style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 700, fontSize: "12px" }}
-                  >
+                  <p className="fd font-bold text-gray-900 text-[12px] leading-tight mb-1.5 tracking-wide">
                     ADIDAS 4DFWD X PARLEY<br />RUNNING SHOES
                   </p>
                   <Stars fill={4} />
-                  <button className="view-btn mt-2 w-full bg-gray-900 text-white py-2 rounded-lg flex items-center justify-between px-3 hover:bg-blue-600 transition-colors">
+                  <button className="fd font-bold text-[11px] tracking-[1.2px] uppercase mt-2 w-full bg-gray-900 text-white py-2 rounded-lg flex items-center justify-between px-3 hover:bg-blue-600 transition-colors">
                     <span>VIEW PRODUCT</span>
-                    <span
-                      className="fd font-black text-green-400"
-                      style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900, fontSize: "13px" }}
-                    >
+                    <span className="fd font-black text-green-400 text-[13px]">
                       {p.price}
                     </span>
                   </button>
