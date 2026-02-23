@@ -539,7 +539,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     </span>
                   )}
                 </p>
-                <button className="breadcrumb text-blue-600 hover:underline">Size Guide →</button>
+           
               </div>
               <div className="grid grid-cols-5 sm:grid-cols-7 gap-2">
                 {sizes.map((s) => {

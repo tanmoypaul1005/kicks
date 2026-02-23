@@ -37,12 +37,6 @@ const related: RelatedProduct[] = [
   { name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES", price: "$125", badge: "New", idx: 3 },
 ];
 
-const trustBadges: TrustBadge[] = [
-  { icon: "🔒", txt: "Secure" },
-  { icon: "🚚", txt: "Fast Ship" },
-  { icon: "↩️", txt: "Returns" },
-];
-
 const sizeOptions: string[] = ["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"];
 const quantityOptions: number[] = [1, 2, 3, 4, 5];
 
@@ -365,16 +359,6 @@ export default function CartPage(): ReactElement {
                       </button>
                     </div>
                   )}
-                </div>
-
-                {/* Trust badges */}
-                <div className="grid grid-cols-3 gap-2 pt-1">
-                  {trustBadges.map((b) => (
-                    <div key={b.txt} className="bg-gray-50 rounded-xl p-2 text-center">
-                      <div className="text-base mb-0.5">{b.icon}</div>
-                      <p className="label-sm text-gray-500" style={{ fontSize: "9px" }}>{b.txt}</p>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
