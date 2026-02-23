@@ -2,6 +2,7 @@
 import HeroSection from "./components/home/HeroSection";
 import ProductGrid from "./components/home/ProductGrid";
 import CategoriesSlider from "./components/home/Categoriesslider";
+import Review from "./components/Review";
 
 export default function KicksPage() {
 
@@ -55,6 +56,9 @@ export default function KicksPage() {
       </div>
 
       <CategoriesSlider />
+      <Review />
     </div>
   );
+
+
 }

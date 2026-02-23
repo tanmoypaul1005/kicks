@@ -1,6 +1,5 @@
 "use client";
 import { useState, ChangeEvent, FormEvent, ComponentType, ReactElement } from "react";
-import Review from "./components/Review";
 
 // ── Types ─────────────────────────────────────────────────────────────────
 interface Review {
@@ -116,9 +115,6 @@ export default function ReviewsAndFooter(): ReactElement {
 
   return (
     <div className="bg-[#f4f4f0] box-border">
-
-      {/* ── REVIEWS ── */}
-      <Review />
 
       {/* ── NEWSLETTER + FOOTER stacked container ── */}
       <div className="mx-auto max-w-7xl px-6">
