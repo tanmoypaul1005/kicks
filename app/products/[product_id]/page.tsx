@@ -417,7 +417,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     {/* "+N more" overlay on last thumb if >4 images */}
                     {allImages.length > 4 && (
                       <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-2xl">
-                        <span className="text-white font-['Barlow_Condensed'] font-black text-2xl">+{allImages.length - 3}</span>
+                        <span className="text-white font-black text-2xl">+{allImages.length - 3}</span>
                       </div>
                     )}
                   </button>
@@ -444,20 +444,20 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-xl w-fit text-[12px] font-semibold">
                 New Release
               </div>
-              <h1 className="font-['Barlow_Condensed'] font-black text-[clamp(28px,5vw,48px)] leading-[0.95] tracking-[-0.5px] text-gray-900">{title}</h1>
+              <h1 className="font-black text-[clamp(28px,5vw,48px)] leading-[0.95] tracking-[-0.5px] text-gray-900">{title}</h1>
             </div>
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="font-['Barlow_Condensed'] font-black text-[clamp(28px,5vw,42px)] text-gray-900">${price}</span>
-              <span className="font-['Barlow_Condensed'] font-bold text-xl text-gray-400 line-through">${Math.round(price * 1.2)}</span>
-              <span className="font-['Barlow_Condensed'] font-bold text-sm text-green-600 bg-green-50 px-2 py-0.5 rounded">Save ${Math.round(price * 0.2)}</span>
+              <span className="font-black text-[clamp(28px,5vw,42px)] text-gray-900">${price}</span>
+              <span className="font-bold text-xl text-gray-400 line-through">${Math.round(price * 1.2)}</span>
+              <span className="font-bold text-sm text-green-600 bg-green-50 px-2 py-0.5 rounded">Save ${Math.round(price * 0.2)}</span>
             </div>
 
             {/* Color selector */}
             {!hasRealImages && (
               <div>
-                <p className="font-['Barlow_Condensed'] font-bold text-[11px] tracking-[2px] uppercase text-gray-500 mb-2.5">
+                <p className="font-bold text-[11px] tracking-[2px] uppercase text-gray-500 mb-2.5">
                   Color:{" "}
                   <span className="font-bold text-[11px] tracking-[0.5px] normal-case">
                     {colorways.find((c) => c.key === selectedColor)?.label}
@@ -479,7 +479,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             {/* Size selector */}
             <div>
               <div className="flex items-center justify-between mb-2.5">
-                <p className="font-['Barlow_Condensed'] font-bold text-[11px] tracking-[2px] uppercase text-gray-500">
+                <p className="font-bold text-[11px] tracking-[2px] uppercase text-gray-500">
                   Size:{" "}
                   {selectedSize !== null && (
                     <span className="font-bold tracking-[0.5px] normal-case">
@@ -497,7 +497,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                       key={s}
                       disabled={unavail}
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
-                      className={` text-[14px] font-medium relative py-2.5 rounded-lg w-[50px] border text-sm transition-all font-['Barlow_Condensed'] 
+                      className={` text-[14px] font-medium relative py-2.5 rounded-lg w-[50px] border text-sm transition-all 
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
@@ -516,21 +516,21 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 })}
               </div>
               {sizeError && (
-                <p className="text-red-500 text-xs mt-1.5 font-['Barlow_Condensed'] font-semibold">Please select a size before adding to cart.</p>
+                <p className="text-red-500 text-xs mt-1.5 font-semibold">Please select a size before adding to cart.</p>
               )}
             </div>
 
             {/* Quantity + Cart */}
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white">
-                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-['Barlow_Condensed'] font-bold">−</button>
-                <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-12 text-center font-['Barlow_Condensed']">{quantity}</span>
-                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-['Barlow_Condensed'] font-bold">+</button>
+                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-bold">−</button>
+                <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-12 text-center">{quantity}</span>
+                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-bold">+</button>
               </div>
 
               <button
                 onClick={handleAddToCart}
-                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all min-h-13 font-['Barlow_Condensed'] font-bold text-[14px] tracking-[1.5px] uppercase ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
+                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all min-h-13  font-bold text-[14px] tracking-[1.5px] uppercase ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
               >
                 {added ? (
                   <>
@@ -559,7 +559,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               </button>
             </div>
 
-            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-['Barlow_Condensed'] font-bold tracking-[1.5px]">
+            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-bold tracking-[1.5px]">
               Buy it now
             </div>
 
@@ -569,22 +569,22 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
         {/* You May Also Like */}
         <div className="mt-8 sm:mt-12 pb-10">
           <div className="flex items-end justify-between mb-5">
-            <h2 className="font-['Barlow_Condensed'] font-black text-gray-900 text-[clamp(22px,5vw,36px)] leading-none">
+            <h2 className="font-black text-gray-900 text-[clamp(22px,5vw,36px)] leading-none">
               YOU MAY ALSO LIKE
             </h2>
-            <button className="font-['Barlow_Condensed'] font-bold text-[13px] tracking-[1.2px] uppercase text-blue-600 hover:underline text-xs">VIEW ALL →</button>
+            <button className=" font-bold text-[13px] tracking-[1.2px] uppercase text-blue-600 hover:underline text-xs">VIEW ALL →</button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {relatedProducts.map((p, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <div className="relative h-32 sm:h-40 bg-gray-50 flex items-center justify-center p-4">
-                  <span className="absolute top-2 left-2 font-['Barlow_Condensed'] font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-wide">{p.badge}</span>
+                  <span className="absolute top-2 left-2 font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-wide">{p.badge}</span>
                   <ThumbShoe color={p.color} active={false} />
                 </div>
                 <div className="p-3">
-                  <p className="font-['Barlow_Condensed'] font-bold text-gray-800 text-sm leading-tight mb-1">{p.name}</p>
+                  <p className="font-bold text-gray-800 text-sm leading-tight mb-1">{p.name}</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-['Barlow_Condensed'] font-black text-gray-900 text-base">{p.price}</span>
+                    <span className="font-black text-gray-900 text-base">{p.price}</span>
                     <Stars fill={4} />
                   </div>
                 </div>
