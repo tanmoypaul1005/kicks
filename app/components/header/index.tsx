@@ -37,8 +37,8 @@ const Header = () => {
 
     return (
         <>
-            <nav className="bg-white border-b border-gray-100 rounded-xl sticky top-0 z-50">
-                <div className="max-w-screen-xl mx-auto px-4 sm:px-8 h-[64px] md:h-[72px] flex items-center justify-between relative">
+            <nav className="bg-white border-b max-w-screen-xl mx-auto border-gray-100 rounded-2xl sticky top-0 z-50">
+                <div className="px-4 sm:px-8 h-[64px] md:h-[72px] flex items-center justify-between relative">
 
                     {/* ── LEFT ── */}
                     {/* Mobile: hamburger | Desktop: nav links */}
