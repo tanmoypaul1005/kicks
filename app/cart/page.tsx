@@ -100,13 +100,14 @@ export default function CartPage(): ReactElement {
   const [promo, setPromo]               = useState<string>("");
   const [promoOpen, setPromoOpen]       = useState<boolean>(false);
   const [promoApplied, setPromoApplied] = useState<boolean>(false);
+  const [appliedCode, setAppliedCode]   = useState<string>("");
   const [removed, setRemoved]           = useState<boolean>(false);
   const [checkoutDone, setCheckoutDone] = useState<boolean>(false);
   const { items, removeItem, updateQty } = useCart();
 
   const delivery: number  = 6.99;
   const subtotal: number  = items.reduce((s, it) => s + it.price * it.qty, 0);
-  const discount: number  = promoApplied ? 13 : 0;
+  const discount: number  = promoApplied && items.length > 0 ? subtotal * 0.1 : 0;
   const itemTotal: number = subtotal - discount;
 
   const handleCheckout = (): void => {
@@ -124,10 +125,19 @@ export default function CartPage(): ReactElement {
     setPromo(e.target.value.toUpperCase());
 
   const handleApplyPromo = (): void => {
-    if (promo) {
+    const trimmedPromo = promo.trim();
+    if (trimmedPromo && items.length > 0) {
+      setAppliedCode(trimmedPromo);
       setPromoApplied(true);
       setPromoOpen(false);
     }
+  };
+
+  const handleRemovePromo = (): void => {
+    setPromoApplied(false);
+    setAppliedCode("");
+    setPromo("");
+    setPromoOpen(false);
   };
 
   return (
@@ -305,8 +315,8 @@ export default function CartPage(): ReactElement {
                   </div>
                   {promoApplied && items.length > 0 && (
                     <div className="flex justify-between items-center text-green-600 slide-in">
-                      <span className="font-bold text-[11px] tracking-[1.5px]">Promo (KICKS10)</span>
-                      <span className="font-bold">-$13.00</span>
+                      <span className="font-bold text-[11px] tracking-[1.5px]">Promo ({appliedCode || "CODE"})</span>
+                      <span className="font-bold">-${discount.toFixed(2)}</span>
                     </div>
                   )}
                 </div>
@@ -337,28 +347,57 @@ export default function CartPage(): ReactElement {
                 </button>
 
                 {/* Promo code */}
-                <div>
-                  <button
-                    onClick={() => setPromoOpen(!promoOpen)}
-                    className="text-blue-600 hover:underline text-sm w-full text-left"
-                  >
-                    {promoApplied ? "✓ Promo code applied" : "Use a promo code"}
-                  </button>
+                <div className="rounded-xl border border-gray-200 bg-white p-3 sm:p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="fd font-black text-gray-900 text-sm leading-none">Promo Code</p>
+                      <p className="text-xs text-gray-500 mt-1">Apply any code to get 10% off subtotal.</p>
+                    </div>
+                    {promoApplied ? (
+                      <span className="text-[11px] font-bold tracking-[1.2px] uppercase text-green-600 bg-green-50 px-2 py-1 rounded-md">Applied</span>
+                    ) : (
+                      <button
+                        onClick={() => setPromoOpen(!promoOpen)}
+                        className="text-blue-600 hover:text-blue-700 transition-colors text-xs font-bold tracking-[1.2px] uppercase"
+                      >
+                        {promoOpen ? "Hide" : "Add"}
+                      </button>
+                    )}
+                  </div>
 
-                  {promoOpen && !promoApplied && (
-                    <div className="slide-in mt-2 flex gap-2">
+                  {!promoApplied && promoOpen && (
+                    <div className="slide-in mt-3 flex gap-2">
                       <input
                         type="text"
                         value={promo}
                         onChange={handlePromoChange}
-                        placeholder="Enter code"
-                        className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 font-[Barlow,sans-serif]"
+                        placeholder="Enter promo code"
+                        className="flex-1 px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 font-[Barlow,sans-serif]"
                       />
                       <button
                         onClick={handleApplyPromo}
-                        className="fd font-bold text-xs tracking-[2px] uppercase px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        disabled={!promo.trim() || items.length === 0}
+                        className={`fd font-bold text-xs tracking-[2px] uppercase px-4 py-2.5 rounded-lg transition-colors ${
+                          !promo.trim() || items.length === 0
+                            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
+                        }`}
                       >
                         APPLY
+                      </button>
+                    </div>
+                  )}
+
+                  {promoApplied && (
+                    <div className="mt-3 flex items-center justify-between rounded-lg bg-green-50 border border-green-100 px-3 py-2">
+                      <p className="text-xs text-green-700 font-semibold">
+                        {appliedCode} active • You save ${discount.toFixed(2)} (10%)
+                      </p>
+                      <button
+                        onClick={handleRemovePromo}
+                        className="text-xs font-bold uppercase tracking-[1px] text-green-700 hover:text-green-800 transition-colors"
+                      >
+                        Remove
                       </button>
                     </div>
                   )}

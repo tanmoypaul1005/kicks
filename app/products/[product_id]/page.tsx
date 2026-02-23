@@ -291,7 +291,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
           <p className="text-gray-500 text-sm mb-4">{typeof error === 'string' ? error : 'Unable to fetch product details'}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm tracking-[1px]"
+            className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm"
           >
             RETRY
           </button>
@@ -432,7 +432,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-xl w-fit text-[12px] font-semibold">
                 New Release
               </div>
-              <h1 className="font-black text-[clamp(28px,5vw,48px)] leading-[0.95] tracking-[-0.5px] text-gray-900">{title}</h1>
+              <h1 className="font-black text-[clamp(28px,5vw,48px)] leading-[0.95] text-gray-900">{title}</h1>
             </div>
 
             {/* Price */}
@@ -445,9 +445,9 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             {/* Color selector */}
             {!hasRealImages && (
               <div>
-                <p className="font-bold text-[11px] tracking-[2px] uppercase text-gray-500 mb-2.5">
+                <p className="font-bold text-[11px] uppercase text-gray-500 mb-2.5">
                   Color:{" "}
-                  <span className="font-bold text-[11px] tracking-[0.5px] normal-case">
+                  <span className="font-bold text-[11px] normal-case">
                     {colorways.find((c) => c.key === selectedColor)?.label}
                   </span>
                 </p>
@@ -467,17 +467,17 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             {/* Size selector */}
             <div>
               <div className="flex items-center justify-between mb-2.5">
-                <p className="font-bold text-[11px] tracking-[2px] uppercase text-gray-500">
+                <p className="font-bold text-[11px] uppercase text-gray-500">
                   Size:{" "}
                   {selectedSize !== null && (
-                    <span className="font-bold tracking-[0.5px] normal-case">
+                    <span className="font-bold normal-case">
                       US {selectedSize}
                     </span>
                   )}
                 </p>
            
               </div>
-              <div className="grid grid-cols-5 sm:grid-cols-7 gap-2">
+              <div className="flex gap-1">
                 {sizes.map((s) => {
                   const unavail: boolean = unavailable.includes(s);
                   return (
@@ -518,7 +518,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               <button
                 onClick={handleAddToCart}
-                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all duration-200 min-h-13 font-bold text-[14px] tracking-[1.5px] uppercase hover:brightness-110 active:scale-[0.99] ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
+                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all duration-200 min-h-13 font-bold text-[14px] uppercase hover:brightness-110 active:scale-[0.99] ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
               >
                 {added ? (
                   <>
@@ -547,7 +547,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               </button>
             </div>
 
-            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-bold tracking-[1.5px] transition-all duration-200 hover:bg-[#3f5fd9] active:scale-[0.99]">
+            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-bold transition-all duration-200 hover:bg-[#3f5fd9] active:scale-[0.99]">
               Buy it now
             </div>
 
@@ -560,7 +560,6 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             <h2 className="font-black text-gray-900 text-[clamp(22px,5vw,36px)] leading-none">
               YOU MAY ALSO LIKE
             </h2>
-            <button className=" font-bold text-[13px] tracking-[1.2px] uppercase text-blue-600 hover:underline text-xs">VIEW ALL →</button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {relatedProducts.map((p, i) => (
