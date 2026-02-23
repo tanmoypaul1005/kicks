@@ -11,6 +11,7 @@ interface Review {
   initials: string;
   avatarBg: string;
   shoeImg: string;
+  avater: string;
 }
 
 
@@ -36,9 +37,9 @@ function StarRating({ rating }: StarRatingProps): ReactElement {
 
 // ── Constants ─────────────────────────────────────────────────────────────
 const reviews: Review[] = [
-  { id: 1, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "JD", avatarBg: "bg-orange-400", shoeImg: "/image/review/review.jpg" },
-  { id: 2, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "AM", avatarBg: "bg-blue-300", shoeImg: "/image/review/review2.jpg" },
-  { id: 3, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "KL", avatarBg: "bg-gray-700", shoeImg: "/image/review/review3.jpg" },
+  { id: 1, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "JD", avatarBg: "bg-orange-400", avater:"/image/review/reviewAvater.jpg", shoeImg: "/image/review/review.jpg" },
+  { id: 2, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "AM", avatarBg: "bg-blue-300", avater:"/image/review/reviewAvater2.jpg", shoeImg: "/image/review/review2.jpg" },
+  { id: 3, title: "Good Quality", text: "I highly recommend shopping from kicks", rating: 5.0, avatar: null, initials: "KL", avatarBg: "bg-gray-700", avater:"/image/review/reviewAvater3.jpg", shoeImg: "/image/review/review3.jpg" },
 ];
 
 
@@ -65,12 +66,12 @@ const Review = () => {
                                     <p className="mb-2 text-[14px] leading-[1.4] text-[#232321] font-normal ">{r.text}</p>
                                     <StarRating rating={r.rating} />
                                 </div>
-                                <div className={`${r.avatarBg} flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-['Barlow_Condensed'] text-[12px] font-bold text-white`}>
-                                    {r.initials}
+                                <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full`}>
+                                    <Image src={r.avater} alt={`${r.initials} avatar`} width={40} height={40} className="h-full w-full rounded-full object-cover" />
                                 </div>
                             </div>
-                            <div className="h-40">
-                                <Image src={r.shoeImg} width={400} height={400} alt="review shoe" className="h-full w-full object-cover" />
+                            <div className="h-62">
+                                <Image src={r.shoeImg} width={500} height={500} alt="review shoe" className="h-full w-full object-cover" />
                             </div>
                         </div>
                     );
