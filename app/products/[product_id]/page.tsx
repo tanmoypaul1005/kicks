@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, CSSProperties, ReactElement } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useCart } from '../../context/CartProvider';
 import { useParams } from "next/navigation";
 
@@ -27,6 +27,7 @@ interface Colorway {
   key: ColorwayKey;
   label: string;
   hex: string;
+  swatchClass: string;
 }
 
 interface ColorPalette {
@@ -78,7 +79,6 @@ interface StarsProps {
 
 interface SkeletonProps {
   className?: string;
-  style?: CSSProperties;
 }
 
 interface ProductPageProps {
@@ -90,10 +90,10 @@ const sizes: number[] = [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12]
 const unavailable: number[] = [6, 6.5, 11.5, 12];
 
 const colorways: Colorway[] = [
-  { key: "black", label: "Triple Black", hex: "#1f2937" },
-  { key: "red", label: "Chicago Red", hex: "#dc2626" },
-  { key: "blue", label: "Royal Blue", hex: "#2563eb" },
-  { key: "grey", label: "Fog Grey", hex: "#6b7280" },
+  { key: "black", label: "Triple Black", hex: "#1f2937", swatchClass: "bg-gray-800" },
+  { key: "red", label: "Chicago Red", hex: "#dc2626", swatchClass: "bg-red-600" },
+  { key: "blue", label: "Royal Blue", hex: "#2563eb", swatchClass: "bg-blue-600" },
+  { key: "grey", label: "Fog Grey", hex: "#6b7280", swatchClass: "bg-gray-500" },
 ];
 
 // ── SVG Shoe Main ─────────────────────────────────────────────────────────
@@ -189,16 +189,10 @@ function Stars({ count = 5, fill = 5 }: StarsProps): ReactElement {
 }
 
 // ── Skeleton ──────────────────────────────────────────────────────────────
-function Skeleton({ className = "", style = {} }: SkeletonProps): ReactElement {
+function Skeleton({ className = "" }: SkeletonProps): ReactElement {
   return (
     <div
-      className={`rounded-xl ${className}`}
-      style={{
-        background: "linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%)",
-        backgroundSize: "200% 100%",
-        animation: "shimmer 1.4s infinite",
-        ...style,
-      }}
+      className={`rounded-xl bg-linear-to-r from-[#f0f0f0] via-[#e0e0e0] to-[#f0f0f0] bg-size-[200%_100%] animate-pulse ${className}`}
     />
   );
 }
@@ -273,14 +267,13 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f4f4f0] p-6">
-        <style>{`@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}`}</style>
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Skeleton className="h-4 w-48 mb-8" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="flex flex-col gap-4">
-              <Skeleton style={{ height: 360 }} />
+              <Skeleton className="h-90" />
               <div className="grid grid-cols-4 gap-3">
-                {[0, 1, 2, 3].map((i) => <Skeleton key={i} style={{ aspectRatio: "4/3" }} />)}
+                {[0, 1, 2, 3].map((i) => <Skeleton key={i} className="aspect-4/3" />)}
               </div>
             </div>
             <div className="flex flex-col gap-5">
@@ -310,8 +303,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
           <p className="text-gray-500 text-sm mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm"
-            style={{ letterSpacing: "1px" }}
+            className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm tracking-[1px]"
           >
             RETRY
           </button>
@@ -337,34 +329,10 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
   return (
     <div className="min-h-screen bg-[#f4f4f0]">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
-        * { font-family: 'Barlow', sans-serif; }
-        .fd { font-family: 'Barlow Condensed', sans-serif; }
-        .product-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(28px,5vw,48px); line-height:.95; letter-spacing:-0.5px; }
-        .section-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:11px; letter-spacing:2px; text-transform:uppercase; }
-        .price-main    { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(28px,5vw,42px); }
-        .btn-primary   { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; }
-        .btn-secondary { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; letter-spacing:1.2px; text-transform:uppercase; }
-        .breadcrumb    { font-family:'Barlow',sans-serif; font-size:12px; }
-        .tab-label     { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase; }
-        .review-author { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:15px; }
-        .review-date   { font-family:'Barlow',sans-serif; font-size:11px; }
-        @keyframes fadeUp  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-        .fade-up  { animation:fadeUp .45s ease both; }
-        .size-btn:hover:not(:disabled) { background:#1f2937; color:#fff; border-color:#1f2937; }
-        .color-ring { box-shadow: 0 0 0 3px #fff, 0 0 0 5px currentColor; }
-        .thumb-card { transition: box-shadow .15s, transform .15s; }
-        .thumb-card:hover { transform:scale(1.04); box-shadow:0 6px 18px #0002; }
-        .add-btn:active { transform:scale(.97); }
-        .feature-chip { font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:12px; letter-spacing:.8px; }
-      `}</style>
-
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8 font-['Barlow']">
 
         {/* Breadcrumb */}
-        <div className="breadcrumb flex items-center gap-1.5 text-gray-400 mb-5 flex-wrap">
+        <div className="flex items-center gap-1.5 text-[12px] text-gray-400 mb-5 flex-wrap">
           <a href="#" className="hover:text-blue-600 transition-colors">Home</a>
           <span className="text-gray-300">/</span>
           <a href="#" className="hover:text-blue-600 transition-colors">{category}</a>
@@ -376,15 +344,14 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-16 items-start">
 
           {/* LEFT — Image Gallery */}
-          <div className="fade-up">
+          <div>
 
             {/* ── 2×2 grid: main image top-left (spans rows), 3 thumbs fill right + bottom-left ── */}
-            <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3" style={{ height: "480px" }}>
+            <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3 h-120">
 
               {/* MAIN IMAGE — top-left, spans 2 rows */}
               <div
-                className="relative bg-white rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer"
-                style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
+                className="relative bg-white rounded-2xl overflow-hidden flex items-center justify-center row-span-2 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
                 onClick={() => setActiveImg(0)}
               >
 
@@ -402,7 +369,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 </div>
 
                 {/* Colorway label pill */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-[10px] px-3 py-1 rounded-full fd font-semibold tracking-wide whitespace-nowrap">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-[10px] px-3 py-1 rounded-full font-['Barlow_Condensed'] font-semibold tracking-wide whitespace-nowrap">
                   {hasRealImages
                     ? title
                     : colorways.find((c) => c.key === selectedColor)?.label}
@@ -416,8 +383,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 return (
                   <button
                     onClick={() => setActiveImg(1)}
-                    className={`thumb-card relative rounded-2xl overflow-hidden bg-white border-2 transition-all w-full h-full ${activeImg === 1 ? "border-blue-600" : "border-transparent"}`}
-                    style={{ boxShadow: "0 2px 8px #0001" }}
+                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 w-full h-full hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 1 ? "border-blue-600" : "border-transparent"}`}
                   >
                     {isPlaceholder ? (
                       <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
@@ -431,8 +397,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               })() : (
                 <button
                   onClick={() => { setSelectedColor(colorways[1].key); setActiveImg(1); }}
-                  className={`thumb-card rounded-2xl overflow-hidden bg-white border-2 transition-all ${selectedColor === colorways[1].key ? "border-blue-600" : "border-transparent"}`}
-                  style={{ boxShadow: "0 2px 8px #0001" }}
+                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[1].key ? "border-blue-600" : "border-transparent"}`}
                 >
                   <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                     <ThumbShoe color={colorways[1].key} active={selectedColor === colorways[1].key} />
@@ -447,8 +412,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 return (
                   <button
                     onClick={() => setActiveImg(2)}
-                    className={`thumb-card relative rounded-2xl overflow-hidden bg-white border-2 transition-all w-full h-full ${activeImg === 2 ? "border-blue-600" : "border-transparent"}`}
-                    style={{ boxShadow: "0 2px 8px #0001" }}
+                    className={`relative rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 w-full h-full hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${activeImg === 2 ? "border-blue-600" : "border-transparent"}`}
                   >
                     {isPlaceholder ? (
                       <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
@@ -460,7 +424,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     {/* "+N more" overlay on last thumb if >4 images */}
                     {allImages.length > 4 && (
                       <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-2xl">
-                        <span className="text-white fd font-black text-2xl">+{allImages.length - 3}</span>
+                        <span className="text-white font-['Barlow_Condensed'] font-black text-2xl">+{allImages.length - 3}</span>
                       </div>
                     )}
                   </button>
@@ -468,8 +432,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               })() : (
                 <button
                   onClick={() => { setSelectedColor(colorways[2].key); setActiveImg(2); }}
-                  className={`thumb-card rounded-2xl overflow-hidden bg-white border-2 transition-all ${selectedColor === colorways[2].key ? "border-blue-600" : "border-transparent"}`}
-                  style={{ boxShadow: "0 2px 8px #0001" }}
+                  className={`rounded-2xl overflow-hidden bg-white border-2 transition-all duration-150 hover:scale-[1.04] hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)] shadow-[0_2px_8px_rgba(0,0,0,0.06)] ${selectedColor === colorways[2].key ? "border-blue-600" : "border-transparent"}`}
                 >
                   <div className="w-full h-full flex items-center justify-center bg-gray-50 p-3">
                     <ThumbShoe color={colorways[2].key} active={selectedColor === colorways[2].key} />
@@ -481,36 +444,36 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
           </div>
 
           {/* RIGHT — Product Details */}
-          <div className="flex flex-col gap-5 fade-up" style={{ animationDelay: ".1s" }}>
+          <div className="flex flex-col gap-5">
 
             {/* Title & Rating */}
             <div>
-              <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-[12px] w-fit text-[12px] font-semibold">
+              <div className="bg-[#4A69E2] mb-4 py-3 px-4 text-white rounded-xl w-fit text-[12px] font-semibold">
                 New Release
               </div>
-              <h1 className="product-title text-gray-900">{title}</h1>
+              <h1 className="font-['Barlow_Condensed'] font-black text-[clamp(28px,5vw,48px)] leading-[0.95] tracking-[-0.5px] text-gray-900">{title}</h1>
             </div>
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="price-main text-gray-900">${price}</span>
-              <span className="fd font-700 text-xl text-gray-400 line-through">${Math.round(price * 1.2)}</span>
-              <span className="fd font-bold text-sm text-green-600 bg-green-50 px-2 py-0.5 rounded">Save ${Math.round(price * 0.2)}</span>
+              <span className="font-['Barlow_Condensed'] font-black text-[clamp(28px,5vw,42px)] text-gray-900">${price}</span>
+              <span className="font-['Barlow_Condensed'] font-bold text-xl text-gray-400 line-through">${Math.round(price * 1.2)}</span>
+              <span className="font-['Barlow_Condensed'] font-bold text-sm text-green-600 bg-green-50 px-2 py-0.5 rounded">Save ${Math.round(price * 0.2)}</span>
             </div>
 
             {/* Feature chips */}
             <div className="flex flex-wrap gap-2">
               {["Premium Quality", "Fast Shipping", "Easy Returns", "Secure Payment"].map((f) => (
-                <span key={f} className="feature-chip bg-gray-100 text-gray-600 px-3 py-1 rounded-full">{f}</span>
+                <span key={f} className="font-['Barlow_Condensed'] font-semibold text-[12px] tracking-[0.8px] bg-gray-100 text-gray-600 px-3 py-1 rounded-full">{f}</span>
               ))}
             </div>
 
             {/* Color selector */}
             {!hasRealImages && (
               <div>
-                <p className="section-label text-gray-500 mb-2.5">
+                <p className="font-['Barlow_Condensed'] font-bold text-[11px] tracking-[2px] uppercase text-gray-500 mb-2.5">
                   Color:{" "}
-                  <span style={{ fontWeight: 700, fontSize: "11px", letterSpacing: "0.5px", textTransform: "none" }}>
+                  <span className="font-bold text-[11px] tracking-[0.5px] normal-case">
                     {colorways.find((c) => c.key === selectedColor)?.label}
                   </span>
                 </p>
@@ -519,8 +482,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                     <button
                       key={c.key}
                       onClick={() => setSelectedColor(c.key)}
-                      className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${selectedColor === c.key ? "color-ring border-blue-600" : "border-transparent"}`}
-                      style={{ background: c.hex, color: c.hex }}
+                      className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 ${c.swatchClass} ${selectedColor === c.key ? "border-white ring-2 ring-offset-2 ring-offset-[#f4f4f0] ring-gray-900" : "border-transparent"}`}
                       title={c.label}
                     />
                   ))}
@@ -531,10 +493,10 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
             {/* Size selector */}
             <div>
               <div className="flex items-center justify-between mb-2.5">
-                <p className="section-label text-gray-500">
+                <p className="font-['Barlow_Condensed'] font-bold text-[11px] tracking-[2px] uppercase text-gray-500">
                   Size:{" "}
                   {selectedSize !== null && (
-                    <span style={{ fontWeight: 700, letterSpacing: "0.5px", textTransform: "none" }}>
+                    <span className="font-bold tracking-[0.5px] normal-case">
                       US {selectedSize}
                     </span>
                   )}
@@ -549,7 +511,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                       key={s}
                       disabled={unavail}
                       onClick={() => { setSelectedSize(s); setSizeError(false); }}
-                      className={` text-[14px] font-medium relative py-2.5 rounded-lg border text-sm transition-all fd 
+                      className={` text-[14px] font-medium relative py-2.5 rounded-lg border text-sm transition-all font-['Barlow_Condensed'] 
                         ${unavail
                           ? "border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50"
                           : selectedSize === s
@@ -568,22 +530,21 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
                 })}
               </div>
               {sizeError && (
-                <p className="text-red-500 text-xs mt-1.5 fd font-semibold">Please select a size before adding to cart.</p>
+                <p className="text-red-500 text-xs mt-1.5 font-['Barlow_Condensed'] font-semibold">Please select a size before adding to cart.</p>
               )}
             </div>
 
             {/* Quantity + Cart */}
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white">
-                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors fd font-bold">−</button>
-                <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-[48px] text-center fd">{quantity}</span>
-                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors fd font-bold">+</button>
+                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-['Barlow_Condensed'] font-bold">−</button>
+                <span className="px-5 py-3 text-sm font-bold text-gray-900 border-x border-gray-200 min-w-12 text-center font-['Barlow_Condensed']">{quantity}</span>
+                <button onClick={() => setQuantity((q) => Math.min(10, q + 1))} className="px-4 py-3 text-lg text-gray-600 hover:bg-gray-50 transition-colors font-['Barlow_Condensed'] font-bold">+</button>
               </div>
 
               <button
                 onClick={handleAddToCart}
-                className={` flex-1 btn-primary cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
-                style={{ minHeight: "52px" }}
+                className={`flex-1 cursor-pointer flex items-center justify-center gap-2 rounded-xl transition-all min-h-13 font-['Barlow_Condensed'] font-bold text-[14px] tracking-[1.5px] uppercase ${added ? "bg-green-600 text-white" : "bg-[#232321] text-white"}`}
               >
                 {added ? (
                   <>
@@ -604,8 +565,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
 
               <button
                 onClick={() => setWishlist(!wishlist)}
-                className={`rounded-xl border-2 flex items-center justify-center transition-all hover:scale-105 ${wishlist ? "border-red-200 bg-red-50" : "border-gray-200 bg-white"}`}
-                style={{ width: "52px", height: "52px" }}
+                className={`rounded-xl border-2 flex items-center justify-center transition-all hover:scale-105 w-13 h-13 ${wishlist ? "border-red-200 bg-red-50" : "border-gray-200 bg-white"}`}
               >
                 <svg className={`w-5 h-5 transition-colors ${wishlist ? "text-red-500 fill-red-500" : "text-gray-400"}`} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} fill="none">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -613,7 +573,7 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
               </button>
             </div>
 
-            <div onClick={handleAddToCart} className="text-[16px] btn-primary cursor-pointer font-medium text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center">
+            <div onClick={handleAddToCart} className="text-[16px] cursor-pointer text-white uppercase bg-[#4A69E2] py-4 rounded-lg text-center font-['Barlow_Condensed'] font-bold tracking-[1.5px]">
               Buy it now
             </div>
 
@@ -623,22 +583,22 @@ export default function ProductPage({ product_id }: ProductPageProps): ReactElem
         {/* You May Also Like */}
         <div className="mt-8 sm:mt-12 pb-10">
           <div className="flex items-end justify-between mb-5">
-            <h2 className="fd font-black text-gray-900" style={{ fontSize: "clamp(22px,5vw,36px)", lineHeight: 1 }}>
+            <h2 className="font-['Barlow_Condensed'] font-black text-gray-900 text-[clamp(22px,5vw,36px)] leading-none">
               YOU MAY ALSO LIKE
             </h2>
-            <button className="btn-secondary text-blue-600 hover:underline text-xs">VIEW ALL →</button>
+            <button className="font-['Barlow_Condensed'] font-bold text-[13px] tracking-[1.2px] uppercase text-blue-600 hover:underline text-xs">VIEW ALL →</button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {relatedProducts.map((p, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform" style={{ boxShadow: "0 2px 12px #0001" }}>
+              <div key={i} className="bg-white rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
                 <div className="relative h-32 sm:h-40 bg-gray-50 flex items-center justify-center p-4">
-                  <span className="absolute top-2 left-2 fd font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-wide">{p.badge}</span>
+                  <span className="absolute top-2 left-2 font-['Barlow_Condensed'] font-bold text-xs text-white bg-blue-600 px-2 py-0.5 rounded tracking-wide">{p.badge}</span>
                   <ThumbShoe color={p.color} active={false} />
                 </div>
                 <div className="p-3">
-                  <p className="fd font-bold text-gray-800 text-sm leading-tight mb-1">{p.name}</p>
+                  <p className="font-['Barlow_Condensed'] font-bold text-gray-800 text-sm leading-tight mb-1">{p.name}</p>
                   <div className="flex items-center justify-between">
-                    <span className="fd font-black text-gray-900 text-base">{p.price}</span>
+                    <span className="font-['Barlow_Condensed'] font-black text-gray-900 text-base">{p.price}</span>
                     <Stars fill={4} />
                   </div>
                 </div>
