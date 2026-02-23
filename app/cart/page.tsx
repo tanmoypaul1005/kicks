@@ -198,7 +198,7 @@ export default function CartPage(): ReactElement {
                               {it.size ? `Size ${it.size}` : "One size"}
                             </p>
                           </div>
-                          <span className="fd font-black text-blue-600 text-[clamp(20px,4vw,28px)] flex-shrink-0">
+                          <span className="font-semibold text-[24px] text-[#4A69E2] flex-shrink-0">
                             ${(it.price * it.qty).toFixed(2)}
                           </span>
                         </div>
@@ -286,27 +286,27 @@ export default function CartPage(): ReactElement {
                 {/* Line items */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">
+                    <span className=" font-bold text-[16px]  text-[#232321]">
                       {items.length === 0 ? "0 ITEMS" : `${items.reduce((s, it) => s + it.qty, 0)} ITEM(s)`}
                     </span>
-                    <span className="fd font-bold text-gray-900">
+                    <span className="font-bold text-gray-900">
                       ${items.length === 0 ? "0.00" : subtotal.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">Delivery</span>
-                    <span className="fd font-bold text-gray-900">
+                    <span className="font-bold text-[16px] text-[#232321]">Delivery</span>
+                    <span className="font-bold text-gray-900">
                       {items.length === 0 ? "—" : `$${delivery.toFixed(2)}`}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase text-gray-500">Sales Tax</span>
-                    <span className="fd font-bold text-gray-400">—</span>
+                    <span className="font-bold text-[16px] text-[#232321]">Sales Tax</span>
+                    <span className="font-bold text-gray-400">—</span>
                   </div>
                   {promoApplied && items.length > 0 && (
                     <div className="flex justify-between items-center text-green-600 slide-in">
-                      <span className="fd font-bold text-[11px] tracking-[1.5px] uppercase">Promo (KICKS10)</span>
-                      <span className="fd font-bold">-$13.00</span>
+                      <span className="font-bold text-[11px] tracking-[1.5px]">Promo (KICKS10)</span>
+                      <span className="font-bold">-$13.00</span>
                     </div>
                   )}
                 </div>
