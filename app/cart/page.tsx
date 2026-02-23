@@ -37,7 +37,6 @@ const related: RelatedProduct[] = [
   { name: "ADIDAS 4DFWD X PARLEY RUNNING SHOES", price: "$125", badge: "New", idx: 3 },
 ];
 
-const sizeOptions: string[] = ["7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"];
 const quantityOptions: number[] = [1, 2, 3, 4, 5];
 
 // ── SVG Components ────────────────────────────────────────────────────────
@@ -142,13 +141,13 @@ export default function CartPage(): ReactElement {
         @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
         * { font-family:'Barlow',sans-serif; box-sizing:border-box; }
         .fd { font-family:'Barlow Condensed',sans-serif; }
-        .section-title  { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(18px,4vw,28px); }
-        .product-name   { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:15px; letter-spacing:0.2px; }
-        .price-large    { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(20px,4vw,28px); }
-        .label-sm       { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; }
-        .checkout-btn   { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; }
-        .view-btn       { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:11px; letter-spacing:1.2px; text-transform:uppercase; }
-        .promo-link     { font-family:'Barlow',sans-serif; font-size:13px; }
+        .section-title  { font-weight:900; font-size:clamp(18px,4vw,28px); }
+        .product-name   { font-weight:700; font-size:15px; letter-spacing:0.2px; }
+        .price-large    { font-weight:900; font-size:clamp(20px,4vw,28px); }
+        .label-sm       { font-weight:700; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; }
+        .checkout-btn   { font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; }
+        .view-btn       { font-weight:700; font-size:11px; letter-spacing:1.2px; text-transform:uppercase; }
+        .promo-link     { font-size:13px; }
         @keyframes fadeUp  { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
         @keyframes slideIn { from{opacity:0;max-height:0} to{opacity:1;max-height:80px} }
         .fade-up  { animation:fadeUp .4s ease both; }
@@ -166,7 +165,7 @@ export default function CartPage(): ReactElement {
         <div className="mb-6 fade-up">
           <h2
             className="fd font-black text-gray-900 text-2xl sm:text-3xl mb-1"
-            style={{ fontFamily: "'Barlow Condensed',sans-serif", fontWeight: 900 }}
+            style={{ fontWeight: 900 }}
           >
             Saving to celebrate
           </h2>
